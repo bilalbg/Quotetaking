@@ -11,15 +11,16 @@ import CoreData
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
+    // timestamp not needed, refactor datamodel + persistence + here 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Books.timestamp, ascending: true)],
         animation: .default)
-    private var items: FetchedResults<Item>
+    private var books: FetchedResults<Books>
 
     var body: some View {
         NavigationView {
             List {
-                ForEach(items) { item in
+                ForEach(books) { item in
                     NavigationLink {
                         Text("Item at \(item.timestamp!, formatter: itemFormatter)")
                     } label: {
@@ -44,7 +45,7 @@ struct ContentView: View {
 
     private func addItem() {
         withAnimation {
-            let newItem = Item(context: viewContext)
+            let newItem = Books(context: viewContext)
             newItem.timestamp = Date()
 
             do {
@@ -60,7 +61,7 @@ struct ContentView: View {
 
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
+            offsets.map { books[$0] }.forEach(viewContext.delete)
 
             do {
                 try viewContext.save()
