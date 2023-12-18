@@ -11,42 +11,63 @@ import CoreData
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    // timestamp not needed, refactor datamodel + persistence + here 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Books.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Books.title, ascending: true)],
         animation: .default)
     private var books: FetchedResults<Books>
+    
+    @State private var isPresentingAddView = false
 
     var body: some View {
         NavigationView {
-            List {
-                ForEach(books) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum:100))], spacing: 5) {
+                    ForEach(books) { book in
+                        NavigationLink(destination: BookQuotesView()) {
+                            BookView(book: book)
+                        }
                     }
                 }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        EditButton()
+                    }
+                    ToolbarItem {
+                        Button {
+                            isPresentingAddView = true
+                        } label: {
+                            Label("Add Item", systemImage: "plus")
+                        }
+                    }
                 }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
+                .sheet(isPresented: $isPresentingAddView) {
+                    NavigationStack {
+                        AddBookView()
+                            .navigationTitle("Add a new book")
+                            .toolbar {
+                                ToolbarItem(placement: .cancellationAction) {
+                                    Button("Cancel") {
+                                        isPresentingAddView = false
+                                    }
+                                }
+                                ToolbarItem(placement: .confirmationAction) {
+                                    Button("Done") {
+                                        isPresentingAddView = false
+                                        // save object here
+                                    }
+                                }
+                            }
                     }
                 }
             }
-            Text("Select an item")
+            .navigationTitle("Your books")
         }
     }
 
     private func addItem() {
         withAnimation {
             let newItem = Books(context: viewContext)
-            newItem.timestamp = Date()
+//            newItem.timestamp = Date()
 
             do {
                 try viewContext.save()

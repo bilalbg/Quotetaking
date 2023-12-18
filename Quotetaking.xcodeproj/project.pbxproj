@@ -19,8 +19,10 @@
 		9ECE4CC82B2E4B290048B4EE /* BookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4CC72B2E4B290048B4EE /* BookView.swift */; };
 		9ECE4CCA2B2E4B350048B4EE /* QuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4CC92B2E4B350048B4EE /* QuoteView.swift */; };
 		9ECE4CCC2B2E4CEA0048B4EE /* TextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4CCB2B2E4CEA0048B4EE /* TextRecognizer.swift */; };
-		9ECE4CD02B2E4D470048B4EE /* BookQuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4CCF2B2E4D470048B4EE /* BookQuoteView.swift */; };
-		9ECE4CD22B2E4D680048B4EE /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4CD12B2E4D680048B4EE /* InputView.swift */; };
+		9ECE4CD22B2E4D680048B4EE /* AddQuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4CD12B2E4D680048B4EE /* AddQuoteView.swift */; };
+		9ECE4CDB2B2FF2890048B4EE /* BookQuotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4CDA2B2FF2890048B4EE /* BookQuotesView.swift */; };
+		9ECE4CDD2B2FF2A60048B4EE /* QuoteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4CDC2B2FF2A60048B4EE /* QuoteDetailView.swift */; };
+		9ECE4CDF2B2FF9CE0048B4EE /* AddBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4CDE2B2FF9CE0048B4EE /* AddBookView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,8 +58,10 @@
 		9ECE4CC72B2E4B290048B4EE /* BookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookView.swift; sourceTree = "<group>"; };
 		9ECE4CC92B2E4B350048B4EE /* QuoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteView.swift; sourceTree = "<group>"; };
 		9ECE4CCB2B2E4CEA0048B4EE /* TextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizer.swift; sourceTree = "<group>"; };
-		9ECE4CCF2B2E4D470048B4EE /* BookQuoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookQuoteView.swift; sourceTree = "<group>"; };
-		9ECE4CD12B2E4D680048B4EE /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
+		9ECE4CD12B2E4D680048B4EE /* AddQuoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddQuoteView.swift; sourceTree = "<group>"; };
+		9ECE4CDA2B2FF2890048B4EE /* BookQuotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookQuotesView.swift; sourceTree = "<group>"; };
+		9ECE4CDC2B2FF2A60048B4EE /* QuoteDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteDetailView.swift; sourceTree = "<group>"; };
+		9ECE4CDE2B2FF9CE0048B4EE /* AddBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +115,6 @@
 				9ECE4CC62B2E4B170048B4EE /* Views */,
 				9ECE4CC52B2E4B0E0048B4EE /* Models */,
 				9ECE4C962B2E473F0048B4EE /* QuotetakingApp.swift */,
-				9ECE4C982B2E473F0048B4EE /* ContentView.swift */,
 				9ECE4C9A2B2E47400048B4EE /* Assets.xcassets */,
 				9ECE4C9F2B2E47400048B4EE /* Persistence.swift */,
 				9ECE4CA12B2E47400048B4EE /* Quotetaking.xcdatamodeld */,
@@ -156,10 +159,13 @@
 		9ECE4CC62B2E4B170048B4EE /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9ECE4C982B2E473F0048B4EE /* ContentView.swift */,
 				9ECE4CC72B2E4B290048B4EE /* BookView.swift */,
 				9ECE4CC92B2E4B350048B4EE /* QuoteView.swift */,
-				9ECE4CD12B2E4D680048B4EE /* InputView.swift */,
-				9ECE4CCF2B2E4D470048B4EE /* BookQuoteView.swift */,
+				9ECE4CD12B2E4D680048B4EE /* AddQuoteView.swift */,
+				9ECE4CDA2B2FF2890048B4EE /* BookQuotesView.swift */,
+				9ECE4CDC2B2FF2A60048B4EE /* QuoteDetailView.swift */,
+				9ECE4CDE2B2FF9CE0048B4EE /* AddBookView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -295,14 +301,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				9ECE4CA32B2E47400048B4EE /* Quotetaking.xcdatamodeld in Sources */,
+				9ECE4CDB2B2FF2890048B4EE /* BookQuotesView.swift in Sources */,
 				9ECE4CCA2B2E4B350048B4EE /* QuoteView.swift in Sources */,
 				9ECE4CA02B2E47400048B4EE /* Persistence.swift in Sources */,
+				9ECE4CDD2B2FF2A60048B4EE /* QuoteDetailView.swift in Sources */,
 				9ECE4C992B2E473F0048B4EE /* ContentView.swift in Sources */,
 				9ECE4C972B2E473F0048B4EE /* QuotetakingApp.swift in Sources */,
+				9ECE4CDF2B2FF9CE0048B4EE /* AddBookView.swift in Sources */,
 				9ECE4CCC2B2E4CEA0048B4EE /* TextRecognizer.swift in Sources */,
-				9ECE4CD22B2E4D680048B4EE /* InputView.swift in Sources */,
+				9ECE4CD22B2E4D680048B4EE /* AddQuoteView.swift in Sources */,
 				9ECE4CC82B2E4B290048B4EE /* BookView.swift in Sources */,
-				9ECE4CD02B2E4D470048B4EE /* BookQuoteView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
