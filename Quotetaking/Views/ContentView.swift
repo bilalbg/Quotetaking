@@ -15,7 +15,7 @@ struct ContentView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Books.title, ascending: true)],
         animation: .default)
     private var books: FetchedResults<Books>
-    
+
     @State private var isPresentingAddView = false
 
     var body: some View {
@@ -42,7 +42,8 @@ struct ContentView: View {
                 }
                 .sheet(isPresented: $isPresentingAddView) {
                     NavigationStack {
-                        AddBookView()
+                        let newItem = Books(context: viewContext)
+                        AddBookView(book: newItem)
                             .navigationTitle("Add a new book")
                             .toolbar {
                                 ToolbarItem(placement: .cancellationAction) {
@@ -53,7 +54,7 @@ struct ContentView: View {
                                 ToolbarItem(placement: .confirmationAction) {
                                     Button("Done") {
                                         isPresentingAddView = false
-                                        // save object here
+                                        addItem()
                                     }
                                 }
                             }
@@ -66,9 +67,6 @@ struct ContentView: View {
 
     private func addItem() {
         withAnimation {
-            let newItem = Books(context: viewContext)
-//            newItem.timestamp = Date()
-
             do {
                 try viewContext.save()
             } catch {
@@ -106,3 +104,13 @@ private let itemFormatter: DateFormatter = {
 #Preview {
     ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
+
+extension NSManagedObjectContext {
+    var firstBook: Books {
+        let fetchRequest = Books.fetchRequest()
+        fetchRequest.fetchLimit = 1
+        let result = try! fetch(fetchRequest)
+        return result.first!
+    }
+}
+

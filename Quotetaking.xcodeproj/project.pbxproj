@@ -23,6 +23,8 @@
 		9ECE4CDB2B2FF2890048B4EE /* BookQuotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4CDA2B2FF2890048B4EE /* BookQuotesView.swift */; };
 		9ECE4CDD2B2FF2A60048B4EE /* QuoteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4CDC2B2FF2A60048B4EE /* QuoteDetailView.swift */; };
 		9ECE4CDF2B2FF9CE0048B4EE /* AddBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4CDE2B2FF9CE0048B4EE /* AddBookView.swift */; };
+		9ECE4CE12B3146910048B4EE /* OptionalOverload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4CE02B3146910048B4EE /* OptionalOverload.swift */; };
+		9ECE4CE42B3148980048B4EE /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4CE32B3148980048B4EE /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +64,8 @@
 		9ECE4CDA2B2FF2890048B4EE /* BookQuotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookQuotesView.swift; sourceTree = "<group>"; };
 		9ECE4CDC2B2FF2A60048B4EE /* QuoteDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteDetailView.swift; sourceTree = "<group>"; };
 		9ECE4CDE2B2FF9CE0048B4EE /* AddBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookView.swift; sourceTree = "<group>"; };
+		9ECE4CE02B3146910048B4EE /* OptionalOverload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalOverload.swift; sourceTree = "<group>"; };
+		9ECE4CE32B3148980048B4EE /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +116,7 @@
 		9ECE4C952B2E473F0048B4EE /* Quotetaking */ = {
 			isa = PBXGroup;
 			children = (
+				9ECE4CE22B31488D0048B4EE /* ViewControllers */,
 				9ECE4CC62B2E4B170048B4EE /* Views */,
 				9ECE4CC52B2E4B0E0048B4EE /* Models */,
 				9ECE4C962B2E473F0048B4EE /* QuotetakingApp.swift */,
@@ -119,6 +124,7 @@
 				9ECE4C9F2B2E47400048B4EE /* Persistence.swift */,
 				9ECE4CA12B2E47400048B4EE /* Quotetaking.xcdatamodeld */,
 				9ECE4C9C2B2E47400048B4EE /* Preview Content */,
+				9ECE4CE02B3146910048B4EE /* OptionalOverload.swift */,
 			);
 			path = Quotetaking;
 			sourceTree = "<group>";
@@ -168,6 +174,14 @@
 				9ECE4CDE2B2FF9CE0048B4EE /* AddBookView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		9ECE4CE22B31488D0048B4EE /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				9ECE4CE32B3148980048B4EE /* ImagePicker.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -300,9 +314,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9ECE4CE42B3148980048B4EE /* ImagePicker.swift in Sources */,
 				9ECE4CA32B2E47400048B4EE /* Quotetaking.xcdatamodeld in Sources */,
 				9ECE4CDB2B2FF2890048B4EE /* BookQuotesView.swift in Sources */,
 				9ECE4CCA2B2E4B350048B4EE /* QuoteView.swift in Sources */,
+				9ECE4CE12B3146910048B4EE /* OptionalOverload.swift in Sources */,
 				9ECE4CA02B2E47400048B4EE /* Persistence.swift in Sources */,
 				9ECE4CDD2B2FF2A60048B4EE /* QuoteDetailView.swift in Sources */,
 				9ECE4C992B2E473F0048B4EE /* ContentView.swift in Sources */,
@@ -477,6 +493,7 @@
 				DEVELOPMENT_TEAM = 98HDZK9A4Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Quotetaking needs access to your camera to take photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -506,6 +523,7 @@
 				DEVELOPMENT_TEAM = 98HDZK9A4Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Quotetaking needs access to your camera to take photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

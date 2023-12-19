@@ -36,12 +36,3 @@ struct BookView: View {
     
     return BookView(book: context.firstBook)
 }
-
-extension NSManagedObjectContext {
-    var firstBook: Books {
-        let fetchRequest = Books.fetchRequest()
-        fetchRequest.fetchLimit = 1
-        let result = try! fetch(fetchRequest)
-        return result.first!
-    }
-}
