@@ -14,6 +14,8 @@ struct ContentView: View {
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Books.title, ascending: true)],
         animation: .default)
+    
+    //probably need to change this so it updates properly and doesn't multiply the list like it is now when adding items
     private var books: FetchedResults<Books>
 
     @State private var isPresentingAddView = false

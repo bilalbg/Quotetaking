@@ -13,19 +13,38 @@ struct BookView: View {
     
     var body: some View {
         
-        if let bookName = book.title {
-            Text(bookName)
-//            Text(book.progress)
-//            Text(book.author)
-//            Text(book.lengthOfBook)
-//            Image(book.bookCover)
+        VStack {
+            if let bookName = book.title {
+                if let imgData = book.bookCover {
+                    if let img = UIImage(data: imgData) {
+                        Text("Image converted")
+                        Image(uiImage: img)
+                            .resizable()
+                    }
+                    else {
+                        Text("No Image")
+                    }
+                }
+                else {
+                    Text("No Image data")
+                }
+                Text(bookName)
+                Text("By: " + (book.author ?? "Unknown"))
+                
+                ProgressView(value: getProgress(progress: Double(book.progress), length: Double(book.lengthOfBook)), total: 1.0)
+                
+            }
+            else {
+              Text("No book here")
+            }
             
-        } /*else {
-            Text("No book here")
-        }*/
-        // ^ for ui visibility until I add book objects
-
+            // ^ for ui visibility until I add book objects
+        }
     }
+}
+
+func getProgress(progress: Double, length: Double) -> Double {
+    return progress / length
 }
 
 

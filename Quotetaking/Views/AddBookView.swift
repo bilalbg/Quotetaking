@@ -18,36 +18,53 @@ struct AddBookView: View {
     var body: some View {
         //update values to non optional when db is fixed
         
-        Form {
-            Section(header: Text("Book Info")) {
-                
-                TextField("Title", text: $book.title ?? "" )
-                TextField("Author", text: $book.author ?? "")
-                TextField("Length of Book", value: $book.lengthOfBook, format: .number)
-                TextField("Progress in book", value: $book.progress , format: .number)
-                
-                ZStack {
-                    Rectangle()
-                        .fill(.secondary)
-                    Text("Tap to select a picture")
-                        .foregroundStyle(.white)
-                        .font(.headline)
+        VStack {
+            Form {
+                Section(header: Text("Book Info")) {
+                    
+                    TextField("Title", text: $book.title ?? "" )
+                    TextField("Author", text: $book.author ?? "")
+                    TextField("Length of Book", value: $book.lengthOfBook, format: .number)
+                    TextField("Progress in book", value: $book.progress , format: .number)
+                    
+                    ZStack {
+                        Rectangle()
+                            .fill(.secondary)
+                        Text("Tap to select a picture")
+                            .foregroundStyle(.white)
+                            .font(.headline)
+                    }
+                    .onTapGesture {
+                        showingImagePicker = true
+                    }
+    //                image field : bookCover (optional)
+                    
+                    
                 }
-                .onTapGesture {
-                    showingImagePicker = true
+            }
+            .sheet(isPresented: $showingImagePicker) {
+                ImagePicker(image: $inputImage).onAppear() {
+                    if let image = inputImage {
+                        if let data = image.pngData() {
+                            book.bookCover = Data(base64Encoded: data)
+                        }
+                    }
                 }
-                //image field : bookCover (optional)
-//                ImagePicker(image: $inputImage)
-//                if let image = inputImage {
-//                    let data = UIImage.pngData(image)
-//                    book.bookCover = data
-//                }
-                
+            }
+            if let img = inputImage {
+                Text("Image Chosen")
+                Image(uiImage: img)
+                    .resizable()
+                    .scaledToFit()
+//                    .frame(height: 100)
+                    
             }
         }
-        .sheet(isPresented: $showingImagePicker) {
-            ImagePicker(image: $inputImage)
-        }
+//        Text(book.title ?? "")
+//        Text(book.author ?? "")
+//        Text(book.lengthOfBook)
+//        Text(book.progress)
+        
     }
 }
 
