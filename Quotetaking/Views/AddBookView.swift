@@ -10,21 +10,21 @@ import CoreData
 import PhotosUI
 
 struct AddBookView: View {
-    @State var book: Books
+    @State var book: Book
     @State private var inputImage: UIImage?
-    
     @State private var showingImagePicker = false
     
+    @ObservedObject var vm: EditBookViewModel
+    
     var body: some View {
-        //update values to non optional when db is fixed
         
         VStack {
             Form {
                 Section(header: Text("Book Info")) {
                     
-                    TextField("Title", text: $book.title ?? "" )
-                    TextField("Author", text: $book.author ?? "")
-                    TextField("Length of Book", value: $book.lengthOfBook, format: .number)
+                    TextField("Title", text: $book.title)
+                    TextField("Author", text: $book.author)
+                    TextField("Length of Book", value: $book.length, format: .number)
                     TextField("Progress in book", value: $book.progress , format: .number)
                     
                     ZStack {
@@ -37,9 +37,6 @@ struct AddBookView: View {
                     .onTapGesture {
                         showingImagePicker = true
                     }
-    //                image field : bookCover (optional)
-                    
-                    
                 }
             }
             .sheet(isPresented: $showingImagePicker) {
@@ -47,6 +44,7 @@ struct AddBookView: View {
                     if let image = inputImage {
                         if let data = image.pngData() {
                             book.bookCover = Data(base64Encoded: data)
+                            showingImagePicker = false
                         }
                     }
                 }
@@ -60,16 +58,13 @@ struct AddBookView: View {
                     
             }
         }
-//        Text(book.title ?? "")
-//        Text(book.author ?? "")
-//        Text(book.lengthOfBook)
-//        Text(book.progress)
         
     }
 }
 
-#Preview {
-    let context = PersistenceController.preview.container.viewContext
 
-    return AddBookView(book: context.firstBook)
+#Preview {
+    let previewProvider = BooksProvider.shared
+
+    return AddBookView(book: .preview(context: previewProvider.viewContext), vm: .init(provider: .shared))
 }

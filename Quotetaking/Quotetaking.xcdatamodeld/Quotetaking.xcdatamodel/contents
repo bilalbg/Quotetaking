@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="23C64" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Books" representedClassName="Books" syncable="YES" codeGenerationType="class">
-        <attribute name="author" optional="YES" attributeType="String"/>
+    <entity name="Books" representedClassName=".Book" syncable="YES">
+        <attribute name="author" attributeType="String"/>
         <attribute name="bookCover" optional="YES" attributeType="Binary" valueTransformerName="NSSecureUnarchiveFromData" allowsExternalBinaryDataStorage="YES"/>
-        <attribute name="lengthOfBook" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="length" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="progress" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
         <relationship name="relationship" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Quote"/>
     </entity>
-    <entity name="Quote" representedClassName="Quote" syncable="YES" codeGenerationType="class">
-        <attribute name="bookName" attributeType="String"/>
-        <attribute name="image" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
-        <attribute name="pageNumber" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="quote" attributeType="String"/>
-        <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
+    <entity name="Quote" representedClassName=".Quote" syncable="YES">
+        <attribute name="page" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="quote" optional="YES" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
     </entity>
 </model>

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E14915D2B33FB00008D028E /* BooksProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E14915C2B33FB00008D028E /* BooksProvider.swift */; };
+		9E14915F2B33FB7A008D028E /* EditBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E14915E2B33FB7A008D028E /* EditBookViewModel.swift */; };
+		9E1491612B33FEEC008D028E /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1491602B33FEEC008D028E /* Book.swift */; };
+		9E1491632B33FEF7008D028E /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1491622B33FEF7008D028E /* Quote.swift */; };
+		9E1491652B340D5F008D028E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9E1491642B340D5F008D028E /* README.md */; };
 		9ECE4C972B2E473F0048B4EE /* QuotetakingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4C962B2E473F0048B4EE /* QuotetakingApp.swift */; };
 		9ECE4C992B2E473F0048B4EE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4C982B2E473F0048B4EE /* ContentView.swift */; };
 		9ECE4C9B2B2E47400048B4EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9ECE4C9A2B2E47400048B4EE /* Assets.xcassets */; };
@@ -45,6 +50,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E14915C2B33FB00008D028E /* BooksProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksProvider.swift; sourceTree = "<group>"; };
+		9E14915E2B33FB7A008D028E /* EditBookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookViewModel.swift; sourceTree = "<group>"; };
+		9E1491602B33FEEC008D028E /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		9E1491622B33FEF7008D028E /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
+		9E1491642B340D5F008D028E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9ECE4C932B2E473F0048B4EE /* Quotetaking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quotetaking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9ECE4C962B2E473F0048B4EE /* QuotetakingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotetakingApp.swift; sourceTree = "<group>"; };
 		9ECE4C982B2E473F0048B4EE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -93,9 +103,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E14915B2B33FAF6008D028E /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				9E14915C2B33FB00008D028E /* BooksProvider.swift */,
+			);
+			path = Providers;
+			sourceTree = "<group>";
+		};
 		9ECE4C8A2B2E473F0048B4EE = {
 			isa = PBXGroup;
 			children = (
+				9E1491642B340D5F008D028E /* README.md */,
 				9ECE4C952B2E473F0048B4EE /* Quotetaking */,
 				9ECE4CAB2B2E47400048B4EE /* QuotetakingTests */,
 				9ECE4CB52B2E47400048B4EE /* QuotetakingUITests */,
@@ -116,6 +135,7 @@
 		9ECE4C952B2E473F0048B4EE /* Quotetaking */ = {
 			isa = PBXGroup;
 			children = (
+				9E14915B2B33FAF6008D028E /* Providers */,
 				9ECE4CE22B31488D0048B4EE /* ViewControllers */,
 				9ECE4CC62B2E4B170048B4EE /* Views */,
 				9ECE4CC52B2E4B0E0048B4EE /* Models */,
@@ -158,6 +178,8 @@
 			isa = PBXGroup;
 			children = (
 				9ECE4CCB2B2E4CEA0048B4EE /* TextRecognizer.swift */,
+				9E1491602B33FEEC008D028E /* Book.swift */,
+				9E1491622B33FEF7008D028E /* Quote.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -172,6 +194,7 @@
 				9ECE4CDA2B2FF2890048B4EE /* BookQuotesView.swift */,
 				9ECE4CDC2B2FF2A60048B4EE /* QuoteDetailView.swift */,
 				9ECE4CDE2B2FF9CE0048B4EE /* AddBookView.swift */,
+				9E14915E2B33FB7A008D028E /* EditBookViewModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -288,6 +311,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E1491652B340D5F008D028E /* README.md in Resources */,
 				9ECE4C9E2B2E47400048B4EE /* Preview Assets.xcassets in Resources */,
 				9ECE4C9B2B2E47400048B4EE /* Assets.xcassets in Resources */,
 			);
@@ -318,13 +342,17 @@
 				9ECE4CA32B2E47400048B4EE /* Quotetaking.xcdatamodeld in Sources */,
 				9ECE4CDB2B2FF2890048B4EE /* BookQuotesView.swift in Sources */,
 				9ECE4CCA2B2E4B350048B4EE /* QuoteView.swift in Sources */,
+				9E1491612B33FEEC008D028E /* Book.swift in Sources */,
 				9ECE4CE12B3146910048B4EE /* OptionalOverload.swift in Sources */,
 				9ECE4CA02B2E47400048B4EE /* Persistence.swift in Sources */,
+				9E14915F2B33FB7A008D028E /* EditBookViewModel.swift in Sources */,
 				9ECE4CDD2B2FF2A60048B4EE /* QuoteDetailView.swift in Sources */,
 				9ECE4C992B2E473F0048B4EE /* ContentView.swift in Sources */,
 				9ECE4C972B2E473F0048B4EE /* QuotetakingApp.swift in Sources */,
+				9E1491632B33FEF7008D028E /* Quote.swift in Sources */,
 				9ECE4CDF2B2FF9CE0048B4EE /* AddBookView.swift in Sources */,
 				9ECE4CCC2B2E4CEA0048B4EE /* TextRecognizer.swift in Sources */,
+				9E14915D2B33FB00008D028E /* BooksProvider.swift in Sources */,
 				9ECE4CD22B2E4D680048B4EE /* AddQuoteView.swift in Sources */,
 				9ECE4CC82B2E4B290048B4EE /* BookView.swift in Sources */,
 			);
