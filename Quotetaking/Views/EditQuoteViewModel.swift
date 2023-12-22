@@ -1,30 +1,32 @@
 //
-//  EditBookView.swift
+//  EditQuoteViewModel.swift
 //  Quotetaking
 //
-//  Created by Bilal Baig on 2023-12-20.
+//  Created by Bilal Baig on 2023-12-21.
 //
 
 import SwiftUI
 import CoreData
 
-final class EditBookViewModel: ObservableObject {
-    @Published var book: Book
+final class EditQuoteViewModel: ObservableObject {
+    @Published var quote: Quote
     private let context: NSManagedObjectContext
     private let provider: BooksProvider
     let isNew: Bool
     
-    init(provider: BooksProvider, book: Book? = nil) {
+    init(provider: BooksProvider, quote: Quote? = nil, title: String = "Title", author: String = "Author") {
       self.context = provider.newViewContext
       self.provider = BooksProvider.shared
-      if let book,
-         let existingBookCopy = provider.bookExists(book, in: context) {
-          self.book = existingBookCopy
+      if let quote,
+         let existingQuoteCopy = provider.quoteExists(quote, in: context) {
+          self.quote = existingQuoteCopy
           self.isNew = false
       } else {
-          self.book = Book(context: self.context)
+          self.quote = Quote(context: self.context)
           self.isNew = true
       }
+        self.quote.title = title
+        self.quote.author = author
     }
     
     func save() throws {
@@ -37,4 +39,5 @@ final class EditBookViewModel: ObservableObject {
             }
         }
     }
+    
 }

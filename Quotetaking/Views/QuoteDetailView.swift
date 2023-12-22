@@ -8,11 +8,20 @@
 import SwiftUI
 
 struct QuoteDetailView: View {
+    @ObservedObject var quote: Quote
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text(quote.title)
+            Text("By: \(quote.author)")
+            Text(quote.quote)
+            Text(String(quote.page))
+        }
     }
 }
 
 #Preview {
-    QuoteDetailView()
+    let previewProvider = BooksProvider.shared
+    
+    return QuoteDetailView(quote: .preview(context: previewProvider.viewContext))
 }

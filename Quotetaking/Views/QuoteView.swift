@@ -2,20 +2,27 @@
 //  QuoteView.swift
 //  Quotetaking
 //
-//  Created by Bilal Baig on 2023-12-16.
+//  Created by Bilal Baig on 2023-12-22.
 //
 
-// detailed view of quote
-
 import SwiftUI
+import Foundation
 
 struct QuoteView: View {
+    @ObservedObject var quote: Quote
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-        //have an edit button in the toolbar to edit quote 
+        VStack {
+            Text(quote.title)
+            Text("By: \(quote.author)")
+            Text(quote.quote)
+            Text(String(quote.page))
+        }
     }
 }
 
 #Preview {
-    QuoteView()
+    let previewProvider = BooksProvider.shared
+    
+    return QuoteView(quote: .preview(context: previewProvider.viewContext))
 }

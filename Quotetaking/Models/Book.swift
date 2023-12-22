@@ -21,7 +21,8 @@ final class Book: NSManagedObject, Identifiable {
         !title.isEmpty &&
         !author.isEmpty &&
         !(progress == 0) &&
-        !(length == 0)
+        !(length == 0) &&
+        progress <= length
     }
     
 }
@@ -48,7 +49,7 @@ extension Book {
         [NSSortDescriptor(keyPath: \Book.title, ascending: order == .asc)]
     }
     
-    static func sortType(type: SortType, order: SortOrder) -> [NSSortDescriptor] {
+    static func sortType(type: BookSortType, order: SortOrder) -> [NSSortDescriptor] {
         switch type {
         case .title:
             [NSSortDescriptor(keyPath: \Book.title, ascending: order == .asc)]

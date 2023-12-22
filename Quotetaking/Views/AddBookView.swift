@@ -31,7 +31,7 @@ struct AddBookView: View {
                         .keyboardType(.phonePad)
                     TextField("Length of Book", value: $vm.book.length, format: .number)
                 }
-                Section("Book cover") {
+                Section("Upload a book cover") {
                     HStack {
                         Button(action: {
                             showingCameraController = true
@@ -43,8 +43,8 @@ struct AddBookView: View {
                         
                         Button(action: {
                             showingImagePicker = true
-                            print("pressing")}
-                        ) {
+                        })
+                        {
                             Text("Photos")
                                 .frame(maxWidth: .infinity)
                         }
@@ -119,5 +119,5 @@ private extension AddBookView {
 #Preview {
     let previewProvider = BooksProvider.shared
 
-    return AddBookView(vm: .init(provider: .shared))
+    return AddBookView(vm: .init(provider: previewProvider))
 }

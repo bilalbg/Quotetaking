@@ -8,22 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct SearchConfig: Equatable {
-    
-//    enum Filter {
-//        case all
-//    }
-    
-    var query: String = ""
-//    var filter: Filter = .all
-    
-}
-enum SortOrder {
-    case asc, desc
-}
-enum SortType {
-    case title, author, progress
-}
+
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -33,7 +18,7 @@ struct ContentView: View {
     @State private var bookToEdit: Book?
     @State private var searchConfig: SearchConfig = .init()
     @State private var sortOrder: SortOrder = .asc
-    @State private var sortType: SortType = .title
+    @State private var sortType: BookSortType = .title
     @State private var isActive = false
     
     var provider = BooksProvider.shared
@@ -44,13 +29,13 @@ struct ContentView: View {
                 if !books.isEmpty {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum:125))], spacing: 5) {
                         ForEach(books) { book in
-                            NavigationLink(destination: BookQuotesView(book: book)) {
+                            NavigationLink(destination: QuotesView(book: book)) {
                                 BookView(book: book)
                             }
                             .contextMenu(ContextMenu(menuItems: {
                                 Button("Delete") {
                                     do {
-                                        try provider.delete(book, in: provider.newViewContext)
+                                        try provider.deleteBook(book, in: provider.newViewContext)
                                     } catch {
                                         print(error)
                                     }
@@ -80,9 +65,9 @@ struct ContentView: View {
                         Text("Sort")
                         Section {
                             Picker(selection: $sortType) {
-                                Text("Title").tag(SortType.title)
-                                Text("Author").tag(SortType.author)
-                                Text("Progress").tag(SortType.progress)
+                                Text("Title").tag(BookSortType.title)
+                                Text("Author").tag(BookSortType.author)
+                                Text("Progress").tag(BookSortType.progress)
                             } label : {
                                 Text("Sort By")
                             }
