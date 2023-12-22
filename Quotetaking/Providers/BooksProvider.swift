@@ -26,7 +26,7 @@ struct BooksProvider {
     }
     
     private init() {
-        persistentContainer = NSPersistentContainer(name: "BooksDataModel")
+        persistentContainer = NSPersistentContainer(name: "Quotetaking")
         if EnvironmentValues.isPreview || Thread.current.isRunningXCTest {
             persistentContainer.persistentStoreDescriptions.first?.url = .init(fileURLWithPath: "/dev/null")
         }

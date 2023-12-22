@@ -12,9 +12,10 @@ final class Book: NSManagedObject, Identifiable {
     
     @NSManaged var title: String
     @NSManaged var author: String
-    @NSManaged var progress: Int
-    @NSManaged var length: Int
+    @NSManaged var progress: Int16
+    @NSManaged var length: Int16
     @NSManaged var bookCover: Data?
+    @NSManaged var percent: Double
     
     var isValid: Bool {
         !title.isEmpty &&
@@ -39,14 +40,24 @@ extension Book {
     }
     
     static func filter(with config: SearchConfig) -> NSPredicate {
-        switch config.filter {
-        case .all:
-            return config.query.isEmpty ? NSPredicate(value: true) : NSPredicate(format: "title CONTAINS[cd] %@", config.query)
-        }
+        return config.query.isEmpty ? NSPredicate(value: true) : NSPredicate(format: "title CONTAINS[cd] %@", config.query)
+        
     }
     
-    static func sort(order: Sort) -> [NSSortDescriptor] {
+    static func sort(order: SortOrder) -> [NSSortDescriptor] {
         [NSSortDescriptor(keyPath: \Book.title, ascending: order == .asc)]
+    }
+    
+    static func sortType(type: SortType, order: SortOrder) -> [NSSortDescriptor] {
+        switch type {
+        case .title:
+            [NSSortDescriptor(keyPath: \Book.title, ascending: order == .asc)]
+        case .author:
+            [NSSortDescriptor(keyPath: \Book.author, ascending: order == .asc)]
+        case .progress:
+            [NSSortDescriptor(keyPath: \Book.progress, ascending: order == .asc)]
+            
+        }
     }
 }
 
@@ -55,12 +66,13 @@ extension Book {
     @discardableResult
     static func makePreview(count: Int, in context: NSManagedObjectContext) -> [Book] {
         var books = [Book]()
-        for i in 0..<count {
+        for i in 1..<count+1 {
             let book = Book(context: context)
             book.title = "title \(i)"
             book.author = "author \(i)"
-            book.progress = i
-            book.length = i*10
+            book.progress = Int16(i*i)
+            book.length = Int16(i)*10
+            book.percent = Double (book.progress) / Double(book.length)
             
             books.append(book)
         }

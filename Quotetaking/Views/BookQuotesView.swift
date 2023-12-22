@@ -8,12 +8,20 @@
 import SwiftUI
 
 struct BookQuotesView: View {
+    let book: Book
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text(book.title)
+        Text(book.author)
+        Text(String(book.progress))
+        Text(String(book.length))
+        Text(String(book.percent))
         //have an edit button in toolbar to edit book info
     }
 }
 
 #Preview {
-    BookQuotesView()
+    let previewProvider = BooksProvider.shared
+    
+    return BookQuotesView(book: .preview(context: previewProvider.viewContext))
 }

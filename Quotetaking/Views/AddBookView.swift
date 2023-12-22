@@ -10,52 +10,83 @@ import CoreData
 import PhotosUI
 
 struct AddBookView: View {
-    @State var book: Book
+    @Environment(\.dismiss) private var dismiss
+    
     @State private var inputImage: UIImage?
     @State private var showingImagePicker = false
+    @State private var showingCameraController = false
+    @State private var hasError: Bool = false
     
     @ObservedObject var vm: EditBookViewModel
     
     var body: some View {
         
         VStack {
-            Form {
-                Section(header: Text("Book Info")) {
+            List {
+                Section("Book Info") {
                     
-                    TextField("Title", text: $book.title)
-                    TextField("Author", text: $book.author)
-                    TextField("Length of Book", value: $book.length, format: .number)
-                    TextField("Progress in book", value: $book.progress , format: .number)
-                    
-                    ZStack {
-                        Rectangle()
-                            .fill(.secondary)
-                        Text("Tap to select a picture")
-                            .foregroundStyle(.white)
-                            .font(.headline)
+                    TextField("Title", text: $vm.book.title)
+                    TextField("Author", text: $vm.book.author)
+                    TextField("Progress in book", value: $vm.book.progress , format: .number)
+                        .keyboardType(.phonePad)
+                    TextField("Length of Book", value: $vm.book.length, format: .number)
+                }
+                Section("Book cover") {
+                    HStack {
+                        Button(action: {
+                            showingCameraController = true
+                        }) {
+                            Text("Camera")
+                                .frame(maxWidth: .infinity)
+                        }
+                        .buttonStyle( BorderlessButtonStyle())
+                        
+                        Button(action: {
+                            showingImagePicker = true
+                            print("pressing")}
+                        ) {
+                            Text("Photos")
+                                .frame(maxWidth: .infinity)
+                        }
+                        .buttonStyle( BorderlessButtonStyle())
                     }
-                    .onTapGesture {
-                        showingImagePicker = true
+                    if let img = inputImage {
+                        Image(uiImage: img)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 300)
+                    } else if let img = getImage(data: vm.book.bookCover) {
+                        Image(uiImage: img)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 300)
+                    }
+                }
+                
+            }
+            .navigationTitle(vm.isNew ? "New Book" : "Edit Book")
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") {
+                        saveBook()
+                    }
+                }
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        dismiss()
                     }
                 }
             }
             .sheet(isPresented: $showingImagePicker) {
-                ImagePicker(image: $inputImage).onAppear() {
-                    if let image = inputImage {
-                        if let data = image.pngData() {
-                            book.bookCover = Data(base64Encoded: data)
-                            showingImagePicker = false
-                        }
-                    }
-                }
+                ImagePicker(image: $inputImage)
             }
-            if let img = inputImage {
-                Text("Image Chosen")
-                Image(uiImage: img)
-                    .resizable()
-                    .scaledToFit()
-//                    .frame(height: 100)
-                    
+            .sheet(isPresented: $showingCameraController) {
+                CameraController(image: $inputImage)
+            }
+            .alert("An error occured",
+                isPresented: $hasError,
+                   actions: {}) {
+                Text("The inputs are invalid. Double check your inputs")
             }
         }
         
@@ -63,8 +94,30 @@ struct AddBookView: View {
 }
 
 
+private extension AddBookView {
+    func saveBook() {
+        if vm.book.isValid {
+            vm.book.percent = getProgress(progress: Double(vm.book.progress), length: Double(vm.book.length))
+            do {
+                if let image = inputImage {
+                    vm.book.bookCover = image.pngData()
+                }
+                try vm.save()
+                dismiss()
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func getProgress(progress: Double, length: Double) -> Double {
+        return progress / length
+    }
+}
+
+
 #Preview {
     let previewProvider = BooksProvider.shared
 
-    return AddBookView(book: .preview(context: previewProvider.viewContext), vm: .init(provider: .shared))
+    return AddBookView(vm: .init(provider: .shared))
 }

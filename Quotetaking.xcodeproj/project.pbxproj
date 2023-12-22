@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E045C262B35211700E40DEE /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E045C252B35211700E40DEE /* CameraController.swift */; };
 		9E14915D2B33FB00008D028E /* BooksProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E14915C2B33FB00008D028E /* BooksProvider.swift */; };
 		9E14915F2B33FB7A008D028E /* EditBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E14915E2B33FB7A008D028E /* EditBookViewModel.swift */; };
 		9E1491612B33FEEC008D028E /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1491602B33FEEC008D028E /* Book.swift */; };
@@ -50,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E045C252B35211700E40DEE /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		9E14915C2B33FB00008D028E /* BooksProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksProvider.swift; sourceTree = "<group>"; };
 		9E14915E2B33FB7A008D028E /* EditBookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookViewModel.swift; sourceTree = "<group>"; };
 		9E1491602B33FEEC008D028E /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				9ECE4CE32B3148980048B4EE /* ImagePicker.swift */,
+				9E045C252B35211700E40DEE /* CameraController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				9ECE4CDF2B2FF9CE0048B4EE /* AddBookView.swift in Sources */,
 				9ECE4CCC2B2E4CEA0048B4EE /* TextRecognizer.swift in Sources */,
 				9E14915D2B33FB00008D028E /* BooksProvider.swift in Sources */,
+				9E045C262B35211700E40DEE /* CameraController.swift in Sources */,
 				9ECE4CD22B2E4D680048B4EE /* AddQuoteView.swift in Sources */,
 				9ECE4CC82B2E4B290048B4EE /* BookView.swift in Sources */,
 			);
@@ -522,6 +526,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Quotetaking needs access to your camera to take photos";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Quotetaking needs access to your photo library to select images";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -552,6 +557,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Quotetaking needs access to your camera to take photos";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Quotetaking needs access to your photo library to select images";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

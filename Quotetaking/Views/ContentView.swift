@@ -10,37 +10,31 @@ import CoreData
 
 struct SearchConfig: Equatable {
     
-    enum Filter {
-        case all
-    }
+//    enum Filter {
+//        case all
+//    }
     
     var query: String = ""
-    var filter: Filter = .all
+//    var filter: Filter = .all
     
 }
-enum Sort {
+enum SortOrder {
     case asc, desc
+}
+enum SortType {
+    case title, author, progress
 }
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(fetchRequest: Book.all()) private var books
-    //    @FetchRequest(
-    //        sortDescriptors: [NSSortDescriptor(keyPath: \Books.title, ascending: true)],
-    //        animation: .default)
-    
-    //probably need to change this so it updates properly and doesn't multiply the list like it is now when adding items
-    //    private var books: FetchedResults<Books>
-    
-    //    @State private var newItem: Books
-    
-    //    @State private var isPresentingAddView = false
-    //    private var didSave = NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
     
     @State private var bookToEdit: Book?
     @State private var searchConfig: SearchConfig = .init()
-    @State private var sort: Sort = .asc
+    @State private var sortOrder: SortOrder = .asc
+    @State private var sortType: SortType = .title
+    @State private var isActive = false
     
     var provider = BooksProvider.shared
     
@@ -50,9 +44,22 @@ struct ContentView: View {
                 if !books.isEmpty {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum:125))], spacing: 5) {
                         ForEach(books) { book in
-                            NavigationLink(destination: BookQuotesView()) {
+                            NavigationLink(destination: BookQuotesView(book: book)) {
                                 BookView(book: book)
                             }
+                            .contextMenu(ContextMenu(menuItems: {
+                                Button("Delete") {
+                                    do {
+                                        try provider.delete(book, in: provider.newViewContext)
+                                    } catch {
+                                        print(error)
+                                    }
+                                }
+                                Button("Edit") {
+                                    bookToEdit = book
+                                }
+                            }))
+                           
                         }
                     }
                     
@@ -70,16 +77,22 @@ struct ContentView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
+                        Text("Sort")
                         Section {
-                            Text("Filter")
-                        }
-                        Section {
-                            Text("Sort")
-                            Picker(selection: $sort) {
-                                Label("Asc", systemImage: "arrow.up").tag(Sort.asc)
-                                Label("Desc", systemImage: "arrow.down").tag(Sort.desc)
+                            Picker(selection: $sortType) {
+                                Text("Title").tag(SortType.title)
+                                Text("Author").tag(SortType.author)
+                                Text("Progress").tag(SortType.progress)
                             } label : {
                                 Text("Sort By")
+                            }
+                        }
+                        Section {
+                            Picker(selection: $sortOrder) {
+                                Label("Asc", systemImage: "arrow.up").tag(SortOrder.asc)
+                                Label("Desc", systemImage: "arrow.down").tag(SortOrder.desc)
+                            } label : {
+                                Text("Sort Order")
                             }
                         }
                     } label: {
@@ -92,64 +105,39 @@ struct ContentView: View {
             }
             .sheet(item: $bookToEdit, onDismiss: {
                 bookToEdit = nil
-            }, content: {book in
+            }, content: { book in
                 NavigationStack {
-                    AddBookView(book: book,
-                                vm: .init(provider: provider))
+                    AddBookView(vm: .init(provider: provider,
+                                          book: book))
                 }
             })
             .navigationTitle("Your books")
+            .onChange(of: searchConfig) {
+                books.nsPredicate = Book.filter(with: searchConfig)
+            }
+            .onChange(of: sortOrder) {
+                books.nsSortDescriptors = Book.sort(order: sortOrder)
+            }
+            .onChange(of: sortType) {
+                books.nsSortDescriptors = Book.sortType(type: sortType, order: sortOrder)
+            }
         }
     }
 }
 
 
-//    private func addItem() {
-//        withAnimation {
-//            do {
-//                try viewContext.save()
-//            } catch {
-//                // Replace this implementation with code to handle the error appropriately.
-//                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//                let nsError = error as NSError
-//                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-//            }
-//        }
-//    }
-//
-//    private func deleteItems(offsets: IndexSet) {
-//        withAnimation {
-//            offsets.map { books[$0] }.forEach(viewContext.delete)
-//
-//            do {
-//                try viewContext.save()
-//            } catch {
-//                // Replace this implementation with code to handle the error appropriately.
-//                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//                let nsError = error as NSError
-//                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-//            }
-//        }
-//    }
-//}
-
-//private let itemFormatter: DateFormatter = {
-//    let formatter = DateFormatter()
-//    formatter.dateStyle = .short
-//    formatter.timeStyle = .medium
-//    return formatter
-//}()
 
 #Preview {
-    ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    let preview = BooksProvider.shared
+    return ContentView(provider: preview)
+        .environment(\.managedObjectContext, preview.viewContext)
+        .previewDisplayName("Books with Data")
+        .onAppear {
+            Book.makePreview(count: 10, in: preview.viewContext)
+        }
+    
+//    let emptyPreview = BooksProvider.shared
+//    return ContentView(provider: emptyPreview)
+//        .environment(\.managedObjectContext, preview.viewContext)
+//        .previewDisplayName("Books with Data")
 }
-
-//extension NSManagedObjectContext {
-//    var firstBook: Books {
-//        let fetchRequest = Books.fetchRequest()
-//        fetchRequest.fetchLimit = 1
-//        let result = try! fetch(fetchRequest)
-//        return result.first!
-//    }
-//}
-

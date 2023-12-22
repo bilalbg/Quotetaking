@@ -16,6 +16,7 @@ final class EditBookViewModel: ObservableObject {
     
     init(provider: BooksProvider, book: Book? = nil) {
       self.context = provider.newViewContext
+      self.provider = BooksProvider.shared
       if let book,
          let existingBookCopy = provider.exists(book, in: context) {
           self.book = existingBookCopy
