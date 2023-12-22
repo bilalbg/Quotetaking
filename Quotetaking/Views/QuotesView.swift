@@ -31,6 +31,9 @@ struct QuotesView: View {
                     Text(quote.title)
                 }
             }
+            .onAppear {
+                quotes.nsPredicate = Quote.filter(with: searchConfig, title: book.title)
+            }
             //have an edit button in toolbar to edit book info
         }
         .navigationTitle("Quotes for \(book.title)")
@@ -53,9 +56,6 @@ struct QuotesView: View {
                                        author: book.author))
             }
         })
-        .onAppear {
-            quotes.nsPredicate = Quote.filter(with: searchConfig, title: book.title)
-        }
     }
 }
 func tmp(quote: Quote) {
