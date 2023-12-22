@@ -30,6 +30,18 @@ struct QuotesView: View {
                     QuoteView(quote: quote)
                     Text(quote.title)
                 }
+                .contextMenu(ContextMenu(menuItems: {
+                    Button("Delete") {
+                        do {
+                            try provider.deleteQuote(quote, in: provider.newViewContext)
+                        } catch {
+                            print(error)
+                        }
+                    }
+                    Button("Edit") {
+                        quoteToEdit = quote
+                    }
+                }))
             }
             .onAppear {
                 quotes.nsPredicate = Quote.filter(with: searchConfig, title: book.title)
@@ -44,6 +56,34 @@ struct QuotesView: View {
                 } label: {
                     Label("Add Item", systemImage: "plus")
                 }
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Menu {
+                    Text("Sort")
+                    Section {
+                        Picker(selection: $sortType) {
+                            Text("Title").tag(QuoteSortType.title)
+                            Text("Author").tag(QuoteSortType.author)
+                            Text("Quote").tag(QuoteSortType.quote)
+                            Text("Page").tag(QuoteSortType.page)
+                        } label : {
+                            Text("Sort By")
+                        }
+                    }
+                    Section {
+                        Picker(selection: $sortOrder) {
+                            Label("Asc", systemImage: "arrow.up").tag(SortOrder.asc)
+                            Label("Desc", systemImage: "arrow.down").tag(SortOrder.desc)
+                        } label : {
+                            Text("Sort Order")
+                        }
+                    }
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .symbolVariant(.circle)
+                        .font(.title2)
+                }
+                
             }
         }
         .sheet(item: $quoteToEdit, onDismiss: {

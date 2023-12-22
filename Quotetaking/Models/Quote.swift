@@ -46,7 +46,7 @@ extension Quote {
     }
     
     static func sort(order: SortOrder) -> [NSSortDescriptor] {
-        [NSSortDescriptor(keyPath: \Quote.title, ascending: order == .asc)]
+        [NSSortDescriptor(keyPath: \Quote.page, ascending: order == .asc)]
     }
     
     static func sortType(type: QuoteSortType, order: SortOrder) -> [NSSortDescriptor] {
