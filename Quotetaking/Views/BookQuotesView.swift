@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct QuotesView: View {
+struct BookQuotesView: View {
     let book: Book
     
     @Environment(\.managedObjectContext) private var viewContext
@@ -105,7 +105,7 @@ func tmp(quote: Quote) {
 #Preview {
     let previewProvider = BooksProvider.shared
     
-    return QuotesView(book: .preview(context: previewProvider.viewContext))
+    return BookQuotesView(book: .preview(context: previewProvider.viewContext))
         .onAppear {
             Quote.makePreview(count: 10, in: previewProvider.viewContext)
             Book.makePreview(count: 10, in: previewProvider.viewContext)

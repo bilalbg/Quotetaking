@@ -29,7 +29,7 @@ struct ContentView: View {
                 if !books.isEmpty {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum:125))], spacing: 5) {
                         ForEach(books) { book in
-                            NavigationLink(destination: QuotesView(book: book)) {
+                            NavigationLink(destination: BookQuotesView(book: book)) {
                                 BookView(book: book)
                             }
                             .contextMenu(ContextMenu(menuItems: {

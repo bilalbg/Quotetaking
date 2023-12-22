@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//page to display a full quote on its own
 struct QuoteDetailView: View {
     @ObservedObject var quote: Quote
     

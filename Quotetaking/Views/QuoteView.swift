@@ -8,6 +8,7 @@
 import SwiftUI
 import Foundation
 
+//quote objects for the quotes list
 struct QuoteView: View {
     @ObservedObject var quote: Quote
     
