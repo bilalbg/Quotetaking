@@ -73,7 +73,7 @@ extension Quote {
             let quote = Quote(context: context)
             quote.title = "title \(i)"
             quote.author = "author \(i)"
-            quote.quote = "quote \(i)"
+            quote.quote = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec metus imperdiet, ullamcorper nisi dapibus, volutpat lectus. Maecenas justo felis, suscipit id semper sed, suscipit eget justo. Vestibulum neque diam, rutrum et nunc vestibulum, auctor congue neque. Duis dictum libero at sodales luctus. Ut eget ipsum pretium, efficitur tortor non, fermentum tellus. Phasellus efficitur magna nec libero feugiat consequat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis volutpat elit turpis, sit amet ultricies ante venenatis id. Sed nec est quis orci molestie eleifend vel eu lacus. Duis dapibus odio ac felis placerat pretium. Quisque sodales, metus et semper ornare, justo mauris commodo lorem, vitae tincidunt odio ex sed diam."
             quote.page = Int16(i*i)
             
             quotes.append(quote)

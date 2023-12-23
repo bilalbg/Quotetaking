@@ -12,12 +12,16 @@ struct QuoteDetailView: View {
     @ObservedObject var quote: Quote
     
     var body: some View {
-        VStack {
-            Text(quote.title)
-            Text("By: \(quote.author)")
+        VStack(alignment: .leading, spacing: 8) {
             Text(quote.quote)
-            Text(String(quote.page))
+                .font(.system(size: 18).italic())
+            HStack {
+                Text(" — \(quote.author) \(quote.page)")
+                    .font(.system(size: 16, design: .rounded).bold())
+            }
+            Text(quote.title)
         }
+        .padding()
     }
 }
 

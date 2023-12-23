@@ -32,6 +32,7 @@ struct ContentView: View {
                             NavigationLink(destination: BookQuotesView(book: book)) {
                                 BookView(book: book)
                             }
+                            .buttonStyle(PlainButtonStyle())
                             .contextMenu(ContextMenu(menuItems: {
                                 Button("Delete") {
                                     do {

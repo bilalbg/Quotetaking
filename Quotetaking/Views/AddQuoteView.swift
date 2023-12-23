@@ -68,13 +68,13 @@ struct AddQuoteView: View {
             }
             .sheet(isPresented: $showingImagePicker) {
                 ImagePicker(image: $inputImage)
-                    .onSubmit {
+                    .onDisappear {
                         showLiveTextView.toggle()
                     }
             }
             .sheet(isPresented: $showingCameraController) {
                 CameraController(image: $inputImage)
-                    .onSubmit {
+                    .onDisappear {
                         showLiveTextView.toggle()
                     }
             }
