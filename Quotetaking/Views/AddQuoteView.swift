@@ -7,15 +7,18 @@
 
 // New quote entry view
 import SwiftUI
+import VisionKit
 
 struct AddQuoteView: View {
     
     @Environment(\.dismiss) private var dismiss
     
+    @State private var deviceSupportLiveText = false
     @State private var inputImage: UIImage?
     @State private var showingImagePicker = false
     @State private var showingCameraController = false
     @State private var hasError: Bool = false
+    @State private var showLiveTextView = false
     
     @ObservedObject var vm: EditQuoteViewModel
     
@@ -27,9 +30,7 @@ struct AddQuoteView: View {
                 Section("Book Info") {
                     TextField("Quote", text: $vm.quote.quote)
                     TextField("Page number", value: $vm.quote.page , format: .number)
-                        .keyboardType(.phonePad)                    //image field : Image of text (optional)
-                    //TextField("Quote", text: $quote ) (optional, this or above required)
-                    //TextField("page number", value: $page, format: .number)
+                        .keyboardType(.phonePad)
                 }
                 Section("Upload an image to extract quote") {
                     HStack {
@@ -67,9 +68,23 @@ struct AddQuoteView: View {
             }
             .sheet(isPresented: $showingImagePicker) {
                 ImagePicker(image: $inputImage)
+                    .onSubmit {
+                        showLiveTextView.toggle()
+                    }
             }
             .sheet(isPresented: $showingCameraController) {
                 CameraController(image: $inputImage)
+                    .onSubmit {
+                        showLiveTextView.toggle()
+                    }
+            }
+        }
+        .onAppear {
+            self.deviceSupportLiveText = ImageAnalyzer.isSupported
+        }
+        .sheet(isPresented: $showLiveTextView) {
+            if let image = inputImage {
+                LiveTextView(image: image)
             }
         }
     }

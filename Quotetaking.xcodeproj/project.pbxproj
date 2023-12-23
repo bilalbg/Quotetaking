@@ -16,6 +16,8 @@
 		9E5A113F2B353941000BB50B /* EditQuoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5A113E2B353941000BB50B /* EditQuoteViewModel.swift */; };
 		9E5A11412B35FD22000BB50B /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5A11402B35FD22000BB50B /* Enums.swift */; };
 		9E5A11432B360EFD000BB50B /* QuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5A11422B360EFD000BB50B /* QuoteView.swift */; };
+		9E5A11452B368798000BB50B /* LiveTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5A11442B368798000BB50B /* LiveTextView.swift */; };
+		9E5AEB4C2B37855B0015BD5B /* LiveTextInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5AEB4B2B37855B0015BD5B /* LiveTextInteraction.swift */; };
 		9ECE4C972B2E473F0048B4EE /* QuotetakingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4C962B2E473F0048B4EE /* QuotetakingApp.swift */; };
 		9ECE4C992B2E473F0048B4EE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4C982B2E473F0048B4EE /* ContentView.swift */; };
 		9ECE4C9B2B2E47400048B4EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9ECE4C9A2B2E47400048B4EE /* Assets.xcassets */; };
@@ -61,6 +63,8 @@
 		9E5A113E2B353941000BB50B /* EditQuoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditQuoteViewModel.swift; sourceTree = "<group>"; };
 		9E5A11402B35FD22000BB50B /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		9E5A11422B360EFD000BB50B /* QuoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteView.swift; sourceTree = "<group>"; };
+		9E5A11442B368798000BB50B /* LiveTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTextView.swift; sourceTree = "<group>"; };
+		9E5AEB4B2B37855B0015BD5B /* LiveTextInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTextInteraction.swift; sourceTree = "<group>"; };
 		9ECE4C932B2E473F0048B4EE /* Quotetaking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quotetaking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9ECE4C962B2E473F0048B4EE /* QuotetakingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotetakingApp.swift; sourceTree = "<group>"; };
 		9ECE4C982B2E473F0048B4EE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -147,7 +151,6 @@
 				9ECE4C9A2B2E47400048B4EE /* Assets.xcassets */,
 				9ECE4CA12B2E47400048B4EE /* Quotetaking.xcdatamodeld */,
 				9ECE4C9C2B2E47400048B4EE /* Preview Content */,
-				9ECE4CE02B3146910048B4EE /* OptionalOverload.swift */,
 			);
 			path = Quotetaking;
 			sourceTree = "<group>";
@@ -180,10 +183,12 @@
 		9ECE4CC52B2E4B0E0048B4EE /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9ECE4CE02B3146910048B4EE /* OptionalOverload.swift */,
 				9ECE4CCB2B2E4CEA0048B4EE /* TextRecognizer.swift */,
 				9E1491602B33FEEC008D028E /* Book.swift */,
 				9E1491622B33FEF7008D028E /* Quote.swift */,
 				9E5A11402B35FD22000BB50B /* Enums.swift */,
+				9E5AEB4B2B37855B0015BD5B /* LiveTextInteraction.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -200,6 +205,7 @@
 				9E14915E2B33FB7A008D028E /* EditBookViewModel.swift */,
 				9E5A113E2B353941000BB50B /* EditQuoteViewModel.swift */,
 				9E5A11422B360EFD000BB50B /* QuoteView.swift */,
+				9E5A11442B368798000BB50B /* LiveTextView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -354,6 +360,7 @@
 				9ECE4C992B2E473F0048B4EE /* ContentView.swift in Sources */,
 				9ECE4C972B2E473F0048B4EE /* QuotetakingApp.swift in Sources */,
 				9E5A11432B360EFD000BB50B /* QuoteView.swift in Sources */,
+				9E5AEB4C2B37855B0015BD5B /* LiveTextInteraction.swift in Sources */,
 				9E1491632B33FEF7008D028E /* Quote.swift in Sources */,
 				9E5A113F2B353941000BB50B /* EditQuoteViewModel.swift in Sources */,
 				9ECE4CDF2B2FF9CE0048B4EE /* AddBookView.swift in Sources */,
@@ -361,6 +368,7 @@
 				9E5A11412B35FD22000BB50B /* Enums.swift in Sources */,
 				9E14915D2B33FB00008D028E /* BooksProvider.swift in Sources */,
 				9E045C262B35211700E40DEE /* CameraController.swift in Sources */,
+				9E5A11452B368798000BB50B /* LiveTextView.swift in Sources */,
 				9ECE4CD22B2E4D680048B4EE /* AddQuoteView.swift in Sources */,
 				9ECE4CC82B2E4B290048B4EE /* BookView.swift in Sources */,
 			);
