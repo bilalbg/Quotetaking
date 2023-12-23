@@ -22,6 +22,14 @@ struct QuoteDetailView: View {
             Text(quote.title)
         }
         .padding()
+        
+        ShareLink("Share Quote", item: quoteToFormat(quote))
+    }
+}
+
+private extension QuoteDetailView {
+    func quoteToFormat(_ quote: Quote) -> String {
+        return "\"\(quote.quote)\", \(quote.author) \(quote.page), \(quote.title)"
     }
 }
 
