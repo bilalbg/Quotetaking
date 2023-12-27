@@ -36,7 +36,6 @@ extension Quote {
         request.sortDescriptors = [
             NSSortDescriptor(keyPath: \Quote.quote, ascending: true)
         ]
-//        request.predicate = NSPredicate(format: "title contains[cd] $@", title)
         return request
     }
     

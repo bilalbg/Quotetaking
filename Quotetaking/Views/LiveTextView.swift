@@ -26,9 +26,6 @@ struct LiveTextView: View {
                 }
                 .interactiveDismissDisabled(true)
         }
-        .onAppear {
-            print(image.pngData())
-        }
     }
 }
 
