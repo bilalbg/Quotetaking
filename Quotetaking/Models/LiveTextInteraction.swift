@@ -24,15 +24,17 @@ struct LiveTextInteraction: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIViewType, context: Context) {
-        guard let image = imageView.image else { return }
+//        guard let image = imageView.image else { return }
         Task { @MainActor in 
             let configuration = ImageAnalyzer.Configuration([.text])
             do {
-                let analysis = try await analyzer.analyze(image, configuration: configuration)
-                interaction.analysis = analysis
-                interaction.preferredInteractionTypes = .automatic
+                if let image = imageView.image {
+                    let analysis = try await analyzer.analyze(image, configuration: configuration)
+                    interaction.analysis = analysis
+                    interaction.preferredInteractionTypes = .automatic
+                }
             } catch {
-                
+                fatalError("Print Error occured: \(error)")
             }
         }
     }

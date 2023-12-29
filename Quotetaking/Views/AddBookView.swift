@@ -30,11 +30,12 @@ struct AddBookView: View {
                     TextField("Progress in book", value: $vm.book.progress , format: .number)
                         .keyboardType(.phonePad)
                     TextField("Length of Book", value: $vm.book.length, format: .number)
+                        .keyboardType(.phonePad)
                 }
                 Section("Upload a book cover") {
                     HStack {
                         Button(action: {
-                            showingCameraController = true
+                            self.showingCameraController.toggle()
                         }) {
                             Text("Camera")
                                 .frame(maxWidth: .infinity)
@@ -42,16 +43,17 @@ struct AddBookView: View {
                         .buttonStyle( BorderlessButtonStyle())
                         
                         Button(action: {
-                            showingImagePicker = true
+                            self.showingImagePicker.toggle()
                         })
                         {
                             Text("Photos")
                                 .frame(maxWidth: .infinity)
                         }
                         .buttonStyle( BorderlessButtonStyle())
+                       
                     }
-                    if let img = inputImage {
-                        Image(uiImage: img)
+                    if let inputImage {
+                        Image(uiImage: inputImage)
                             .resizable()
                             .scaledToFit()
                             .frame(height: 300)
@@ -81,7 +83,11 @@ struct AddBookView: View {
                 ImagePicker(image: $inputImage)
             }
             .sheet(isPresented: $showingCameraController) {
-                CameraController(image: $inputImage)
+                if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                    CameraController() { image in
+                        inputImage = image
+                    }
+                }
             }
             .alert("An error occured",
                 isPresented: $hasError,

@@ -9,38 +9,60 @@ import PhotosUI
 import SwiftUI
 
 struct CameraController: UIViewControllerRepresentable {
-    @Binding var image: UIImage?
-    var sourceType: UIImagePickerController.SourceType = .camera
-    @Environment(\.presentationMode) private var presentationMode
-    
+
+    @Environment(\.presentationMode)
+    private var presentationMode
+
+    let sourceType = UIImagePickerController.SourceType.camera
+    let onImagePicked: (UIImage) -> Void
+
     func makeUIViewController(context: UIViewControllerRepresentableContext<CameraController>) -> UIImagePickerController {
         let picker = UIImagePickerController()
-        picker.allowsEditing = false
         picker.sourceType = sourceType
         picker.delegate = context.coordinator
         return picker
     }
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<CameraController>) {
+
+    func updateUIViewController(_ uiViewController: UIImagePickerController,
+                                context: UIViewControllerRepresentableContext<CameraController>) {
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+        return Coordinator(presentationMode: presentationMode,
+                           sourceType: sourceType,
+                           onImagePicked: onImagePicked)
     }
-    
-    final class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-        let parent: CameraController
-        init(_ parent: CameraController) {
-            self.parent = parent
+
+    final class Coordinator: NSObject,
+    UINavigationControllerDelegate,
+    UIImagePickerControllerDelegate {
+
+        @Binding
+        private var presentationMode: PresentationMode
+        private let sourceType: UIImagePickerController.SourceType
+        private let onImagePicked: (UIImage) -> Void
+
+        init(presentationMode: Binding<PresentationMode>,
+             sourceType: UIImagePickerController.SourceType,
+             onImagePicked: @escaping (UIImage) -> Void) {
+            _presentationMode = presentationMode
+            self.sourceType = sourceType
+            self.onImagePicked = onImagePicked
         }
-        
-        func picker(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            picker.dismiss(animated: true)
-            if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                self.parent.image = image
-            } else {
-                print("fail")
-            }
-            parent.presentationMode.wrappedValue.dismiss()
+
+        func imagePickerController(_ picker: UIImagePickerController,
+                                   didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            let uiImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+            onImagePicked(uiImage)
+            presentationMode.dismiss()
+
         }
+
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            presentationMode.dismiss()
+        }
+
     }
+
+
 }

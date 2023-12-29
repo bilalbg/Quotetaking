@@ -10,21 +10,23 @@ import SwiftUI
 struct LiveTextView: View {
     @Environment(\.presentationMode) var presentationMode
     
-    var image: UIImage
+    @Binding var image: UIImage?
     
     var body: some View {
         NavigationStack {
-            LiveTextInteraction(image: image)
-                .toolbar{
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button {
-                            self.presentationMode.wrappedValue.dismiss()
-                        } label: {
-                            Text("Cancel")
+            if let image {
+                LiveTextInteraction(image: image)
+                    .toolbar{
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button {
+                                self.presentationMode.wrappedValue.dismiss()
+                            } label: {
+                                Text("Cancel")
+                            }
                         }
                     }
-                }
-                .interactiveDismissDisabled(true)
+                    .interactiveDismissDisabled(true)
+            }
         }
     }
 }

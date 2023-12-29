@@ -121,9 +121,4 @@ struct ContentView: View {
         .onAppear {
             Book.makePreview(count: 10, in: preview.viewContext)
         }
-    
-//    let emptyPreview = BooksProvider.shared
-//    return ContentView(provider: emptyPreview)
-//        .environment(\.managedObjectContext, preview.viewContext)
-//        .previewDisplayName("Books with Data")
 }

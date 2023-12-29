@@ -28,7 +28,7 @@ struct AddQuoteView: View {
         //update values to non optional when db is fixed
             List {
                 Section("Book Info") {
-                    TextField("Quote", text: $vm.quote.quote)
+                    TextField("Quote", text: $vm.quote.quote, axis: .vertical)
                     TextField("Page number", value: $vm.quote.page , format: .number)
                         .keyboardType(.phonePad)
                 }
@@ -69,23 +69,26 @@ struct AddQuoteView: View {
             .sheet(isPresented: $showingImagePicker) {
                 ImagePicker(image: $inputImage)
                     .onDisappear {
+                        DispatchQueue.main.async {
+                            
+                        }
                         showLiveTextView.toggle()
                     }
             }
             .sheet(isPresented: $showingCameraController) {
-                CameraController(image: $inputImage)
-                    .onDisappear {
-                        showLiveTextView.toggle()
+                CameraController() { image in
+                    DispatchQueue.main.async {
+                        inputImage = image
                     }
+                    showLiveTextView.toggle()
+                }
             }
         }
         .onAppear {
             self.deviceSupportLiveText = ImageAnalyzer.isSupported
         }
         .sheet(isPresented: $showLiveTextView) {
-            if let image = inputImage {
-                LiveTextView(image: image)
-            }
+                LiveTextView(image: $inputImage)
         }
     }
 }
@@ -94,7 +97,6 @@ private extension AddQuoteView {
     func saveQuote() {
         if vm.quote.isValid {
             do {
-                print(vm.quote)
                 try vm.save()
                 dismiss()
             } catch {

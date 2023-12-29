@@ -80,6 +80,7 @@
 		9ECE4CDC2B2FF2A60048B4EE /* QuoteDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteDetailView.swift; sourceTree = "<group>"; };
 		9ECE4CDE2B2FF9CE0048B4EE /* AddBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookView.swift; sourceTree = "<group>"; };
 		9ECE4CE32B3148980048B4EE /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		9EE725662B3E242500E41348 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +140,7 @@
 		9ECE4C952B2E473F0048B4EE /* Quotetaking */ = {
 			isa = PBXGroup;
 			children = (
+				9EE725662B3E242500E41348 /* Info.plist */,
 				9E14915B2B33FAF6008D028E /* Providers */,
 				9ECE4CE22B31488D0048B4EE /* ViewControllers */,
 				9ECE4CC62B2E4B170048B4EE /* Views */,
@@ -529,6 +531,7 @@
 				DEVELOPMENT_TEAM = 98HDZK9A4Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Quotetaking/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Quotetaking needs access to your camera to take photos";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Quotetaking needs access to your photo library to select images";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -560,6 +563,7 @@
 				DEVELOPMENT_TEAM = 98HDZK9A4Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Quotetaking/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Quotetaking needs access to your camera to take photos";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Quotetaking needs access to your photo library to select images";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
