@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9E045C262B35211700E40DEE /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E045C252B35211700E40DEE /* CameraController.swift */; };
+		9E050E712B3F4898004C9D73 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E050E702B3F4898004C9D73 /* Launch Screen.storyboard */; };
 		9E14915D2B33FB00008D028E /* BooksProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E14915C2B33FB00008D028E /* BooksProvider.swift */; };
 		9E14915F2B33FB7A008D028E /* EditBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E14915E2B33FB7A008D028E /* EditBookViewModel.swift */; };
 		9E1491612B33FEEC008D028E /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1491602B33FEEC008D028E /* Book.swift */; };
@@ -53,6 +54,7 @@
 
 /* Begin PBXFileReference section */
 		9E045C252B35211700E40DEE /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
+		9E050E702B3F4898004C9D73 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		9E14915C2B33FB00008D028E /* BooksProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksProvider.swift; sourceTree = "<group>"; };
 		9E14915E2B33FB7A008D028E /* EditBookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookViewModel.swift; sourceTree = "<group>"; };
 		9E1491602B33FEEC008D028E /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				9ECE4C9A2B2E47400048B4EE /* Assets.xcassets */,
 				9ECE4CA12B2E47400048B4EE /* Quotetaking.xcdatamodeld */,
 				9ECE4C9C2B2E47400048B4EE /* Preview Content */,
+				9E050E702B3F4898004C9D73 /* Launch Screen.storyboard */,
 			);
 			path = Quotetaking;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 			files = (
 				9E1491652B340D5F008D028E /* README.md in Resources */,
 				9ECE4C9E2B2E47400048B4EE /* Preview Assets.xcassets in Resources */,
+				9E050E712B3F4898004C9D73 /* Launch Screen.storyboard in Resources */,
 				9ECE4C9B2B2E47400048B4EE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -533,10 +537,12 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Quotetaking/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Quotetaking needs access to your camera to take photos";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Created by Bilal Baig";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Quotetaking needs access to your photo library to select images";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -565,10 +571,12 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Quotetaking/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Quotetaking needs access to your camera to take photos";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Created by Bilal Baig";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Quotetaking needs access to your photo library to select images";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
