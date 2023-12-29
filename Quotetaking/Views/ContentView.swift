@@ -108,6 +108,9 @@ struct ContentView: View {
                 books.nsSortDescriptors = Book.sortType(type: sortType, order: sortOrder)
             }
         }
+        .onAppear {
+            books.nsSortDescriptors = Book.sortType(type: sortType, order: sortOrder)
+        }
     }
 }
 

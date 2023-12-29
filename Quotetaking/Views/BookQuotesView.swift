@@ -104,6 +104,9 @@ struct BookQuotesView: View {
             .onChange(of: searchConfig) {
                 quotes.nsPredicate = Quote.filter(with: searchConfig, title: book.title)
             }
+            .onAppear {
+                quotes.nsSortDescriptors = Quote.sortType(type: sortType, order: sortOrder)
+        }
         }
     }
 }
