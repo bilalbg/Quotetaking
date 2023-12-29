@@ -24,5 +24,5 @@ enum BookSortType {
     case title, author, progress
 }
 enum QuoteSortType {
-    case title, author, quote, page
+    case quote, page
 }

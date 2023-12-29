@@ -40,7 +40,7 @@ extension Quote {
     }
     
     static func filter(with config: SearchConfig, title: String) -> NSPredicate {
-        return config.query.isEmpty ? NSPredicate(format: "title contains [cd] %@", title) : NSPredicate(format: "title contains [cd] $@ AND quote CONTAINS[cd] %@",title, config.query)
+        return config.query.isEmpty ? NSPredicate(format: "title contains [cd] %@", title) : NSPredicate(format: "title contains [cd] %@ AND quote CONTAINS[cd] %@",title, config.query)
         
     }
     
@@ -50,10 +50,6 @@ extension Quote {
     
     static func sortType(type: QuoteSortType, order: SortOrder) -> [NSSortDescriptor] {
         switch type {
-        case .title:
-            [NSSortDescriptor(keyPath: \Quote.title, ascending: order == .asc)]
-        case .author:
-            [NSSortDescriptor(keyPath: \Quote.author, ascending: order == .asc)]
         case .quote:
             [NSSortDescriptor(keyPath: \Quote.quote, ascending: order == .asc)]
         case .page:

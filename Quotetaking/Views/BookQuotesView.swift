@@ -48,6 +48,7 @@ struct BookQuotesView: View {
                     quotes.nsPredicate = Quote.filter(with: searchConfig, title: book.title)
                 }
             }
+            .searchable(text: $searchConfig.query)
             .navigationTitle("Quotes for \(book.title)")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -62,8 +63,6 @@ struct BookQuotesView: View {
                         Text("Sort")
                         Section {
                             Picker(selection: $sortType) {
-                                Text("Title").tag(QuoteSortType.title)
-                                Text("Author").tag(QuoteSortType.author)
                                 Text("Quote").tag(QuoteSortType.quote)
                                 Text("Page").tag(QuoteSortType.page)
                             } label : {
@@ -96,6 +95,15 @@ struct BookQuotesView: View {
                                            author: book.author))
                 }
             })
+            .onChange(of: sortOrder) {
+                quotes.nsSortDescriptors = Quote.sort(order: sortOrder)
+            }
+            .onChange(of: sortType) {
+                quotes.nsSortDescriptors = Quote.sortType(type: sortType, order: sortOrder)
+            }
+            .onChange(of: searchConfig) {
+                quotes.nsPredicate = Quote.filter(with: searchConfig, title: book.title)
+            }
         }
     }
 }
