@@ -66,12 +66,12 @@ struct AddQuoteView: View {
                     }
                 }
             }
+            .onChange(of: inputImage) {
+                print($0)
+            }
             .sheet(isPresented: $showingImagePicker) {
                 ImagePicker(image: $inputImage)
                     .onDisappear {
-                        DispatchQueue.main.async {
-                            
-                        }
                         showLiveTextView.toggle()
                     }
             }
@@ -88,7 +88,15 @@ struct AddQuoteView: View {
             self.deviceSupportLiveText = ImageAnalyzer.isSupported
         }
         .sheet(isPresented: $showLiveTextView) {
-                LiveTextView(image: $inputImage)
+            
+            if let img = inputImage {
+                LiveTextView(image: img)
+                    .onDisappear() {
+                        DispatchQueue.main.async {
+                            inputImage = nil
+                        }
+                    }
+            }
         }
     }
 }

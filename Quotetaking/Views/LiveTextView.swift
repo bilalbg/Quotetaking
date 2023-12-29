@@ -10,11 +10,11 @@ import SwiftUI
 struct LiveTextView: View {
     @Environment(\.presentationMode) var presentationMode
     
-    @Binding var image: UIImage?
+    /*@Binding*/ var image: UIImage/*?*/
     
     var body: some View {
         NavigationStack {
-            if let image {
+//            if let image {
                 LiveTextInteraction(image: image)
                     .toolbar{
                         ToolbarItem(placement: .navigationBarLeading) {
@@ -26,7 +26,7 @@ struct LiveTextView: View {
                         }
                     }
                     .interactiveDismissDisabled(true)
-            }
+//            }
         }
     }
 }
