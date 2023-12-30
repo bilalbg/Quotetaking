@@ -15,6 +15,8 @@ struct LiveTextInteraction: UIViewRepresentable {
     let imageView = LiveTextImageView()
     let analyzer = ImageAnalyzer()
     let interaction = ImageAnalysisInteraction()
+    @Binding var highlightedText: String?
+    @Binding var isCallingFunc: Bool
     
     func makeUIView(context: Context) -> some UIView {
         imageView.image = image
@@ -24,19 +26,27 @@ struct LiveTextInteraction: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIViewType, context: Context) {
-//        guard let image = imageView.image else { return }
         Task { @MainActor in 
             let configuration = ImageAnalyzer.Configuration([.text])
             do {
                 if let image = imageView.image {
                     let analysis = try await analyzer.analyze(image, configuration: configuration)
                     interaction.analysis = analysis
-                    interaction.preferredInteractionTypes = .automatic
+                    interaction.preferredInteractionTypes = .automaticTextOnly
+                    
                 }
             } catch {
                 fatalError("Print Error occured: \(error)")
             }
         }
+        if isCallingFunc {
+            isCallingFunc.toggle()
+            self.getText()
+        }
+    }
+    
+    func getText() {
+        self.highlightedText = self.interaction.selectedText
     }
 }
 

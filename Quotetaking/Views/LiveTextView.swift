@@ -11,22 +11,40 @@ struct LiveTextView: View {
     @Environment(\.presentationMode) var presentationMode
     
     /*@Binding*/ var image: UIImage/*?*/
+    @Binding var highlightedText: String?
+    @State var callFunc = false
+    
     
     var body: some View {
         NavigationStack {
-//            if let image {
-                LiveTextInteraction(image: image)
+            if let text = highlightedText {
+                Text(text)
+                    .frame(alignment: .center)
+                    .italic()
+            }
+            LiveTextInteraction(image: image, highlightedText: $highlightedText, isCallingFunc: $callFunc)
                     .toolbar{
-                        ToolbarItem(placement: .navigationBarLeading) {
+                        ToolbarItem(placement: .topBarLeading) {
                             Button {
                                 self.presentationMode.wrappedValue.dismiss()
                             } label: {
                                 Text("Cancel")
                             }
                         }
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                self.presentationMode.wrappedValue.dismiss()
+                            } label: {
+                                Text("Done")
+                            }
+                        }
                     }
                     .interactiveDismissDisabled(true)
-//            }
+            Button {
+                callFunc.toggle()
+            } label: {
+                Text("Extract text")
+            }
         }
     }
 }

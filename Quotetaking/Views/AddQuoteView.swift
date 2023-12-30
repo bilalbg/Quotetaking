@@ -10,9 +10,9 @@ import SwiftUI
 import VisionKit
 
 struct AddQuoteView: View {
-    
     @Environment(\.dismiss) private var dismiss
     
+    @State private var highlightedText: String? 
     @State private var deviceSupportLiveText = false
     @State private var inputImage: UIImage?
     @State private var showingImagePicker = false
@@ -25,7 +25,6 @@ struct AddQuoteView: View {
     
     var body: some View {
         VStack {
-        //update values to non optional when db is fixed
             List {
                 Section("Book Info") {
                     TextField("Quote", text: $vm.quote.quote, axis: .vertical)
@@ -90,10 +89,13 @@ struct AddQuoteView: View {
         .sheet(isPresented: $showLiveTextView) {
             
             if let img = inputImage {
-                LiveTextView(image: img)
+                LiveTextView(image: img, highlightedText: $highlightedText)
                     .onDisappear() {
                         DispatchQueue.main.async {
                             inputImage = nil
+                            if let text = highlightedText {
+                                vm.quote.quote = text
+                            }
                         }
                     }
             }
@@ -113,6 +115,7 @@ private extension AddQuoteView {
         }
     }
 }
+
 
 #Preview {
     let previewProvider = BooksProvider.shared
