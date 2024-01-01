@@ -27,7 +27,7 @@ struct ContentView: View {
         NavigationView {
             ScrollView {
                 if !books.isEmpty {
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum:125))], spacing: 5) {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum:100))], spacing: 5) {
                         ForEach(books) { book in
                             NavigationLink(destination: BookQuotesView(book: book)) {
                                 BookView(book: book)
@@ -102,12 +102,13 @@ struct ContentView: View {
                 books.nsPredicate = Book.filter(with: searchConfig)
             }
             .onChange(of: sortOrder) {
-                books.nsSortDescriptors = Book.sort(order: sortOrder)
+                books.nsSortDescriptors = Book.sortType(type: sortType, order: sortOrder)
             }
             .onChange(of: sortType) {
                 books.nsSortDescriptors = Book.sortType(type: sortType, order: sortOrder)
             }
         }
+        .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
         .onAppear {
             books.nsSortDescriptors = Book.sortType(type: sortType, order: sortOrder)
         }

@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import SwiftUI
 
 final class Book: NSManagedObject, Identifiable {
     
@@ -45,18 +46,14 @@ extension Book {
         
     }
     
-    static func sort(order: SortOrder) -> [NSSortDescriptor] {
-        [NSSortDescriptor(keyPath: \Book.title, ascending: order == .asc)]
-    }
-    
     static func sortType(type: BookSortType, order: SortOrder) -> [NSSortDescriptor] {
         switch type {
         case .title:
             [NSSortDescriptor(keyPath: \Book.title, ascending: order == .asc)]
         case .author:
-            [NSSortDescriptor(keyPath: \Book.author, ascending: order == .asc)]
+            [NSSortDescriptor(keyPath: \Book.author, ascending: order == .asc), NSSortDescriptor(keyPath: \Book.title, ascending: true)]
         case .progress:
-            [NSSortDescriptor(keyPath: \Book.progress, ascending: order == .asc)]
+            [NSSortDescriptor(keyPath: \Book.progress, ascending: order == .asc), NSSortDescriptor(keyPath: \Book.title, ascending: true)]
             
         }
     }
@@ -74,6 +71,7 @@ extension Book {
             book.progress = Int16(i*i)
             book.length = Int16(i)*10
             book.percent = Double (book.progress) / Double(book.length)
+            book.bookCover = UIImage(systemName: "book.closed.fill")?.pngData()
             
             books.append(book)
         }

@@ -107,6 +107,8 @@ private extension AddBookView {
             do {
                 if let image = inputImage {
                     vm.book.bookCover = image.pngData()
+                } else {
+                    vm.book.bookCover = UIImage(systemName: "book.closed.fill")?.pngData()
                 }
                 try vm.save()
                 dismiss()

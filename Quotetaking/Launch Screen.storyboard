@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eT9-dX-hnm">
-                                <rect key="frame" x="69" y="290.33333333333331" width="255" height="252.33333333333331"/>
+                                <rect key="frame" x="69" y="300" width="255" height="252.33333333333337"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="249" id="2My-12-gR1"/>
                                     <constraint firstAttribute="width" constant="255" id="e0w-c4-aXn"/>
@@ -27,7 +27,7 @@
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quotetaking" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="GJd-Yh-RWb">
-                                <rect key="frame" x="7" y="201" width="389" height="43"/>
+                                <rect key="frame" x="7" y="201" width="389" height="52.666666666666657"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
                                 <color key="textColor" systemColor="systemBrownColor"/>
                                 <nil key="highlightedColor"/>

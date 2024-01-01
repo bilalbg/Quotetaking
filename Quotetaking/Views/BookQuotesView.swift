@@ -96,7 +96,7 @@ struct BookQuotesView: View {
                 }
             })
             .onChange(of: sortOrder) {
-                quotes.nsSortDescriptors = Quote.sort(order: sortOrder)
+                quotes.nsSortDescriptors = Quote.sortType(type: sortType, order: sortOrder)
             }
             .onChange(of: sortType) {
                 quotes.nsSortDescriptors = Quote.sortType(type: sortType, order: sortOrder)
