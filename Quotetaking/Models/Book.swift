@@ -21,8 +21,8 @@ final class Book: NSManagedObject, Identifiable {
     var isValid: Bool {
         !title.isEmpty &&
         !author.isEmpty &&
-        !(progress == 0) &&
-        !(length == 0) &&
+        !(progress < 0) &&
+        !(length <= 0) &&
         progress <= length
     }
     
@@ -71,7 +71,7 @@ extension Book {
             book.progress = Int16(i*i)
             book.length = Int16(i)*10
             book.percent = Double (book.progress) / Double(book.length)
-            book.bookCover = UIImage(systemName: "book.closed.fill")?.pngData()
+            book.bookCover = UIImage(systemName: "book.closed.fill")?.withTintColor(.brown).pngData()
             
             books.append(book)
         }

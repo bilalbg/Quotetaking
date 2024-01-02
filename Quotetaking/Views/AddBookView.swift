@@ -19,18 +19,33 @@ struct AddBookView: View {
     
     @ObservedObject var vm: EditBookViewModel
     
+    var imageView = UIImageView()
+    
+    @State var badInput = false
+    
     var body: some View {
         
         VStack {
             List {
                 Section("Book Info") {
                     
-                    TextField("Title", text: $vm.book.title)
+                    TextField("Title", text: $vm.book.title, axis: .vertical)
                     TextField("Author", text: $vm.book.author)
-                    TextField("Progress in book", value: $vm.book.progress , format: .number)
-                        .keyboardType(.phonePad)
-                    TextField("Length of Book", value: $vm.book.length, format: .number)
-                        .keyboardType(.phonePad)
+                    LabeledContent {
+                        TextField("0", value: $vm.book.progress , format: .number)
+                            .keyboardType(.phonePad)
+                            .multilineTextAlignment(.trailing)
+                            
+                    } label: {
+                        Text("Progress in Book")
+                    }
+                    LabeledContent {
+                        TextField("300", value: $vm.book.length, format: .number)
+                            .keyboardType(.phonePad)
+                            .multilineTextAlignment(.trailing)
+                    } label: {
+                        Text("Length of Book")
+                    }
                 }
                 Section("Upload a book cover") {
                     HStack {
@@ -50,6 +65,15 @@ struct AddBookView: View {
                                 .frame(maxWidth: .infinity)
                         }
                         .buttonStyle( BorderlessButtonStyle())
+                        Button(action: {
+                            vm.book.bookCover = nil
+                            inputImage = nil
+                        })
+                        {
+                            Text("Clear")
+                                .frame(maxWidth: .infinity)
+                        }
+                        .buttonStyle( BorderlessButtonStyle())
                        
                     }
                     if let inputImage {
@@ -57,12 +81,7 @@ struct AddBookView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(height: 300)
-                    } else if let img = getImage(data: vm.book.bookCover) {
-                        Image(uiImage: img)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 300)
-                    }
+                    } 
                 }
                 
             }
@@ -95,8 +114,17 @@ struct AddBookView: View {
                 Text("The inputs are invalid. Double check your inputs")
             }
         }
+        .onAppear {
+            if !vm.isNew {
+                inputImage = getImage(data: vm.book.bookCover)
+            }
+        }
+        .alert(isPresented: $badInput) {
+            Alert(title: Text("Bad input. Ensure you entered a title, author and length > 0."))
+        }
         
     }
+    
 }
 
 
@@ -108,7 +136,7 @@ private extension AddBookView {
                 if let image = inputImage {
                     vm.book.bookCover = image.pngData()
                 } else {
-                    vm.book.bookCover = UIImage(systemName: "book.closed.fill")?.pngData()
+                    vm.book.bookCover = UIImage(systemName: "book.closed.fill")?.withTintColor(.brown).pngData()
                 }
                 try vm.save()
                 dismiss()
@@ -116,6 +144,7 @@ private extension AddBookView {
                 print(error)
             }
         }
+        badInput = true
     }
     
     func getProgress(progress: Double, length: Double) -> Double {

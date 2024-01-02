@@ -19,17 +19,22 @@ struct AddQuoteView: View {
     @State private var showingCameraController = false
     @State private var hasError: Bool = false
     @State private var showLiveTextView = false
+    @State private var badInput = false
     
-    @ObservedObject var vm: EditQuoteViewModel
-    
+    @ObservedObject var vm: EditQuoteViewModel    
     
     var body: some View {
         VStack {
             List {
                 Section("Book Info") {
                     TextField("Quote", text: $vm.quote.quote, axis: .vertical)
-                    TextField("Page number", value: $vm.quote.page , format: .number)
-                        .keyboardType(.phonePad)
+                    LabeledContent {
+                        TextField("25", value: $vm.quote.page , format: .number)
+                            .keyboardType(.phonePad)
+                            .multilineTextAlignment(.trailing)
+                    } label: {
+                        Text("Page number")
+                    }
                 }
                 Section("Upload an image to extract quote") {
                     HStack {
@@ -100,6 +105,9 @@ struct AddQuoteView: View {
                     }
             }
         }
+        .alert(isPresented: $badInput) {
+            Alert(title: Text("Bad input. Ensure you entered a title, author and length > 0."))
+        }
     }
 }
 
@@ -113,6 +121,7 @@ private extension AddQuoteView {
                 print(error)
             }
         }
+        badInput = true
     }
 }
 

@@ -20,7 +20,7 @@ final class Quote: NSManagedObject, Identifiable {
         !title.isEmpty &&
         !author.isEmpty &&
         !quote.isEmpty &&
-        !(page == 0)
+        !(page <= 0)
     }
     
 }
