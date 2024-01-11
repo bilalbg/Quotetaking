@@ -120,8 +120,9 @@ private extension AddQuoteView {
             } catch {
                 print(error)
             }
+        } else {
+            badInput = true
         }
-        badInput = true
     }
 }
 

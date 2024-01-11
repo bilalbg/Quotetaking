@@ -15,7 +15,6 @@ struct AddBookView: View {
     @State private var inputImage: UIImage?
     @State private var showingImagePicker = false
     @State private var showingCameraController = false
-    @State private var hasError: Bool = false
     
     @ObservedObject var vm: EditBookViewModel
     
@@ -108,11 +107,6 @@ struct AddBookView: View {
                     }
                 }
             }
-            .alert("An error occured",
-                isPresented: $hasError,
-                   actions: {}) {
-                Text("The inputs are invalid. Double check your inputs")
-            }
         }
         .onAppear {
             if !vm.isNew {
@@ -143,8 +137,9 @@ private extension AddBookView {
             } catch {
                 print(error)
             }
+        } else {
+            badInput = true
         }
-        badInput = true
     }
     
     func getProgress(progress: Double, length: Double) -> Double {
