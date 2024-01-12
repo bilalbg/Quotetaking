@@ -21,7 +21,6 @@ struct BookView: View {
                         .frame(height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/)
             }
             else {
-                // add a default image here ?
                 Text("No Image data")
             }
             Text(book.title)
