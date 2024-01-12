@@ -121,6 +121,7 @@
 		9ECE4C8A2B2E473F0048B4EE = {
 			isa = PBXGroup;
 			children = (
+				9EE2DCA12B50BBC800083893 /* Images */,
 				9E1491642B340D5F008D028E /* README.md */,
 				9ECE4C952B2E473F0048B4EE /* Quotetaking */,
 				9ECE4CAB2B2E47400048B4EE /* QuotetakingTests */,
@@ -216,6 +217,13 @@
 				9E045C252B35211700E40DEE /* CameraController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		9EE2DCA12B50BBC800083893 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
