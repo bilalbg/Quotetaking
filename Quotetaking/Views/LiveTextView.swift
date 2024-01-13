@@ -26,6 +26,7 @@ struct LiveTextView: View {
                     .toolbar{
                         ToolbarItem(placement: .topBarLeading) {
                             Button {
+                                highlightedText = nil
                                 self.presentationMode.wrappedValue.dismiss()
                             } label: {
                                 Text("Cancel")

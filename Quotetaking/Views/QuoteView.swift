@@ -15,8 +15,8 @@ struct QuoteView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(quote.quote)
-                .font(.system(size: 18).italic())
-                .lineLimit(2)
+                .font(.system(size: 12).italic())
+                .lineLimit(4)
             HStack {
                 Text(" — \(quote.author) \(quote.page)")
                     .font(.system(size: 16, design: .rounded).bold())

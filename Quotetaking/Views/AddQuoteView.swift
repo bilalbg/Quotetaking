@@ -40,6 +40,7 @@ struct AddQuoteView: View {
                     HStack {
                         Button(action: {
                             showingCameraController = true
+                            highlightedText = nil
                         }) {
                             Text("Camera")
                                 .frame(maxWidth: .infinity)
@@ -48,6 +49,7 @@ struct AddQuoteView: View {
                         
                         Button(action: {
                             showingImagePicker = true
+                            highlightedText = nil
                         })
                         {
                             Text("Photos")
