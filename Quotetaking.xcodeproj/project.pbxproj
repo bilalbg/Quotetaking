@@ -82,6 +82,7 @@
 		9ECE4CDC2B2FF2A60048B4EE /* QuoteDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteDetailView.swift; sourceTree = "<group>"; };
 		9ECE4CDE2B2FF9CE0048B4EE /* AddBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookView.swift; sourceTree = "<group>"; };
 		9ECE4CE32B3148980048B4EE /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		9EE2DCD82B7C1C6500083893 /* PrivacyPolicy.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = PrivacyPolicy.md; sourceTree = "<group>"; };
 		9EE725662B3E242500E41348 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -121,6 +122,7 @@
 		9ECE4C8A2B2E473F0048B4EE = {
 			isa = PBXGroup;
 			children = (
+				9EE2DCD82B7C1C6500083893 /* PrivacyPolicy.md */,
 				9EE2DCA12B50BBC800083893 /* Images */,
 				9E1491642B340D5F008D028E /* README.md */,
 				9ECE4C952B2E473F0048B4EE /* Quotetaking */,
