@@ -1,3 +1,3 @@
 # A iOS app to document quotes from books you've read
 
-<img src="https://github.com/bilalbg/Quotetaking/blob/main/Images/image1.png" width="250"> <img src="https://github.com/bilalbg/Quotetaking/blob/main/Images/image2.png" width="250"> <img src="https://github.com/bilalbg/Quotetaking/blob/main/Images/image3.png" width="250"> <img src="https://github.com/bilalbg/Quotetaking/blob/main/Images/image4.png" width="250"> <img src="https://github.com/bilalbg/Quotetaking/blob/main/Images/image5.png" width="250">
+[Download this on the app Store!](https://apps.apple.com/us/app/quotetaking/id6475243754)
