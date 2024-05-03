@@ -33,6 +33,7 @@
 		9ECE4CDD2B2FF2A60048B4EE /* QuoteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4CDC2B2FF2A60048B4EE /* QuoteDetailView.swift */; };
 		9ECE4CDF2B2FF9CE0048B4EE /* AddBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4CDE2B2FF9CE0048B4EE /* AddBookView.swift */; };
 		9ECE4CE42B3148980048B4EE /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4CE32B3148980048B4EE /* ImagePicker.swift */; };
+		9EE2DCDB2BE3316100083893 /* ChatGPTSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9EE2DCDA2BE3316100083893 /* ChatGPTSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EE2DCDB2BE3316100083893 /* ChatGPTSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +246,9 @@
 			dependencies = (
 			);
 			name = Quotetaking;
+			packageProductDependencies = (
+				9EE2DCDA2BE3316100083893 /* ChatGPTSwift */,
+			);
 			productName = Quotetaking;
 			productReference = 9ECE4C932B2E473F0048B4EE /* Quotetaking.app */;
 			productType = "com.apple.product-type.application";
@@ -316,6 +321,9 @@
 				Base,
 			);
 			mainGroup = 9ECE4C8A2B2E473F0048B4EE;
+			packageReferences = (
+				9EE2DCD92BE3316100083893 /* XCRemoteSwiftPackageReference "ChatGPTSwift" */,
+			);
 			productRefGroup = 9ECE4C942B2E473F0048B4EE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -718,6 +726,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9EE2DCD92BE3316100083893 /* XCRemoteSwiftPackageReference "ChatGPTSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alfianlosari/ChatGPTSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9EE2DCDA2BE3316100083893 /* ChatGPTSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9EE2DCD92BE3316100083893 /* XCRemoteSwiftPackageReference "ChatGPTSwift" */;
+			productName = ChatGPTSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		9ECE4CA12B2E47400048B4EE /* Quotetaking.xcdatamodeld */ = {

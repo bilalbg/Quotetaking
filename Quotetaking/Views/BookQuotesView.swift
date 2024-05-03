@@ -27,7 +27,11 @@ struct BookQuotesView: View {
         VStack(alignment: .leading, spacing: 8) {
             List {
                 ForEach(quotes) { quote in
-                    NavigationLink(destination: QuoteDetailView(quote: quote)) {
+                    NavigationLink(destination: QuoteDetailView(quote: quote,
+                            vm: .init(provider: provider,
+                                      quote: quote,
+                                      title: book.title,
+                                      author: book.author))) {
                         QuoteView(quote: quote)
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -86,6 +90,7 @@ struct BookQuotesView: View {
                 }
             }
             .sheet(item: $quoteToEdit, onDismiss: {
+                
                 quoteToEdit = nil
             }, content: { quote in
                 NavigationStack {
@@ -94,6 +99,7 @@ struct BookQuotesView: View {
                                            title: book.title,
                                            author: book.author))
                 }
+                
             })
             .onChange(of: sortOrder) {
                 quotes.nsSortDescriptors = Quote.sortType(type: sortType, order: sortOrder)

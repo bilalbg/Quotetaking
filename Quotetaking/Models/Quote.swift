@@ -15,6 +15,7 @@ final class Quote: NSManagedObject, Identifiable {
     @NSManaged var author: String
     @NSManaged var quote: String
     @NSManaged var page: Int16
+    @NSManaged var explanation: String?
     
     var isValid: Bool {
         !title.isEmpty &&
