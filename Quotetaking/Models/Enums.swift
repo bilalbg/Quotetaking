@@ -9,12 +9,7 @@ import Foundation
 
 struct SearchConfig: Equatable {
     
-//    enum Filter {
-//        case all
-//    }
-    
     var query: String = ""
-//    var filter: Filter = .all
     
 }
 enum SortOrder {

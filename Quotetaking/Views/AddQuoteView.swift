@@ -21,7 +21,7 @@ struct AddQuoteView: View {
     @State private var showLiveTextView = false
     @State private var badInput = false
     
-    @ObservedObject var vm: EditQuoteViewModel    
+    @ObservedObject var vm: EditQuoteViewModel
     
     var body: some View {
         VStack {
@@ -35,6 +35,7 @@ struct AddQuoteView: View {
                     } label: {
                         Text("Page number")
                     }
+                    TextField("Notes", text: $vm.quote.notes ?? "", axis: .vertical)
                 }
                 Section("Upload an image to extract quote") {
                     HStack {
@@ -63,7 +64,6 @@ struct AddQuoteView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") {
                         saveQuote()
-                        print(vm.quote)
                     }
                 }
                 ToolbarItem(placement: .cancellationAction) {

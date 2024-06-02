@@ -34,15 +34,19 @@ struct ContentView: View {
                             }
                             .buttonStyle(PlainButtonStyle())
                             .contextMenu(ContextMenu(menuItems: {
-                                Button("Delete") {
+                                Button {
                                     do {
                                         try provider.deleteBook(book, in: provider.newViewContext)
                                     } catch {
                                         print(error)
                                     }
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
                                 }
-                                Button("Edit") {
+                                Button {
                                     bookToEdit = book
+                                } label: {
+                                    Label("Edit", systemImage: "pencil")
                                 }
                             }))
                            

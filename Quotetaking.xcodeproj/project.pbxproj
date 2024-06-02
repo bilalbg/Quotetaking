@@ -34,6 +34,7 @@
 		9ECE4CDF2B2FF9CE0048B4EE /* AddBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4CDE2B2FF9CE0048B4EE /* AddBookView.swift */; };
 		9ECE4CE42B3148980048B4EE /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4CE32B3148980048B4EE /* ImagePicker.swift */; };
 		9EE2DCDB2BE3316100083893 /* ChatGPTSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9EE2DCDA2BE3316100083893 /* ChatGPTSwift */; };
+		9EF563C32C0CEFF50081AEB8 /* OperatorOverload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF563C22C0CEFF50081AEB8 /* OperatorOverload.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		9ECE4CE32B3148980048B4EE /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		9EE2DCD82B7C1C6500083893 /* PrivacyPolicy.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = PrivacyPolicy.md; sourceTree = "<group>"; };
 		9EE725662B3E242500E41348 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		9EF563C22C0CEFF50081AEB8 /* OperatorOverload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperatorOverload.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 		9ECE4C952B2E473F0048B4EE /* Quotetaking */ = {
 			isa = PBXGroup;
 			children = (
+				9EF563C12C0CEFE90081AEB8 /* Helpers */,
 				9EE725662B3E242500E41348 /* Info.plist */,
 				9E14915B2B33FAF6008D028E /* Providers */,
 				9ECE4CE22B31488D0048B4EE /* ViewControllers */,
@@ -228,6 +231,14 @@
 			children = (
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		9EF563C12C0CEFE90081AEB8 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				9EF563C22C0CEFF50081AEB8 /* OperatorOverload.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -382,6 +393,7 @@
 				9E5A113F2B353941000BB50B /* EditQuoteViewModel.swift in Sources */,
 				9ECE4CDF2B2FF9CE0048B4EE /* AddBookView.swift in Sources */,
 				9E5A11412B35FD22000BB50B /* Enums.swift in Sources */,
+				9EF563C32C0CEFF50081AEB8 /* OperatorOverload.swift in Sources */,
 				9E14915D2B33FB00008D028E /* BooksProvider.swift in Sources */,
 				9E045C262B35211700E40DEE /* CameraController.swift in Sources */,
 				9E5A11452B368798000BB50B /* LiveTextView.swift in Sources */,

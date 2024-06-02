@@ -13,45 +13,54 @@ struct BookQuotesView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     
-    @FetchRequest(fetchRequest: Quote.all()) private var quotes
+    @FetchRequest(fetchRequest: Quote.all()) private var quotesRequest
     
     @State private var quoteToEdit: Quote?
     @State private var searchConfig: SearchConfig = .init()
     @State private var sortOrder: SortOrder = .asc
     @State private var sortType: QuoteSortType = .page
-    @State private var isActive = false
+    @State private var submitted = false
     
     var provider = BooksProvider.shared
+    var quotes: FetchedResults<Quote> {
+        quotesRequest.nsPredicate = Quote.filter(with: searchConfig, title: book.title)
+        quotesRequest.nsSortDescriptors = Quote.sortType(type: sortType, order: sortOrder)
+        return quotesRequest
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             List {
-                ForEach(quotes) { quote in
+                ForEach(book.filterQuotes(with: searchConfig, order: sortOrder, type: sortType)) { quote in
+                    //                ForEach(quotes) { quote in
                     NavigationLink(destination: QuoteDetailView(quote: quote,
-                            vm: .init(provider: provider,
-                                      quote: quote,
-                                      title: book.title,
-                                      author: book.author))) {
+                                                                vm: .init(provider: provider,
+                                                                quote: quote,
+                                                                title: book.title,
+                                                                author: book.author))
+                    ) {
                         QuoteView(quote: quote)
                     }
-                    .buttonStyle(PlainButtonStyle())
-                    .contextMenu(ContextMenu(menuItems: {
-                        Button("Delete") {
-                            do {
-                                try provider.deleteQuote(quote, in: provider.newViewContext)
-                            } catch {
-                                print(error)
-                            }
-                        }
-                        Button("Edit") {
-                            quoteToEdit = quote
-                        }
-                    }))
-                }
-                .onAppear {
-                    quotes.nsPredicate = Quote.filter(with: searchConfig, title: book.title)
+                      .buttonStyle(PlainButtonStyle())
+                      .contextMenu(ContextMenu(menuItems: {
+                          Button {
+                              do {
+                                  try provider.deleteQuote(quote, in: provider.newViewContext)
+                              } catch {
+                                  print(error)
+                              }
+                          } label: {
+                              Label("Delete", systemImage: "trash")
+                          }
+                          Button {
+                              quoteToEdit = quote
+                          } label: {
+                              Label("Edit", systemImage: "pencil")
+                          }
+                      }))
                 }
             }
+            .environment(\.defaultMinListRowHeight, 0)
             .searchable(text: $searchConfig.query)
             .navigationTitle("Quotes for \(book.title)")
             .toolbar {
@@ -90,8 +99,8 @@ struct BookQuotesView: View {
                 }
             }
             .sheet(item: $quoteToEdit, onDismiss: {
-                
                 quoteToEdit = nil
+                submitted.toggle()
             }, content: { quote in
                 NavigationStack {
                     AddQuoteView(vm: .init(provider: provider,
@@ -101,18 +110,35 @@ struct BookQuotesView: View {
                 }
                 
             })
-            .onChange(of: sortOrder) {
-                quotes.nsSortDescriptors = Quote.sortType(type: sortType, order: sortOrder)
-            }
-            .onChange(of: sortType) {
-                quotes.nsSortDescriptors = Quote.sortType(type: sortType, order: sortOrder)
-            }
-            .onChange(of: searchConfig) {
-                quotes.nsPredicate = Quote.filter(with: searchConfig, title: book.title)
-            }
-            .onAppear {
-                quotes.nsSortDescriptors = Quote.sortType(type: sortType, order: sortOrder)
         }
+        .onChange(of: submitted) {
+            DispatchQueue.main.async {
+                if book.getQuotesAsArray.count < quotes.count {
+                    DispatchQueue.main.async {
+                        updateQuotes(quotes, book)
+                    }
+                }
+            }
+        }
+    }
+}
+
+private extension BookQuotesView {
+    func updateQuotes(_ quotes: FetchedResults<Quote>, _ book: Book) {
+        for quote in quotes.filter({$0.book == nil}) {
+            if quote.book != book && quote.title == book.title  {
+                if quote.title == book.title {
+                        print("pass")
+                        quote.book = book
+                        viewContext.insert(quote)
+                        print(quote)
+                        do {
+                            try viewContext.save()
+                        } catch {
+                            print(error)
+                        }
+                }
+            }
         }
     }
 }

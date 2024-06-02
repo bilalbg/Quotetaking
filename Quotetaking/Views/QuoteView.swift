@@ -22,7 +22,7 @@ struct QuoteView: View {
                     .font(.system(size: 16, design: .rounded).bold())
             }
         }
-        .frame(maxWidth: .infinity, alignment: .leading )
+        .frame(height: 75)
         .padding()
         
     }

@@ -16,12 +16,15 @@ final class Quote: NSManagedObject, Identifiable {
     @NSManaged var quote: String
     @NSManaged var page: Int16
     @NSManaged var explanation: String?
+    @NSManaged var book: Book?
+    @NSManaged var notes: String?
     
     var isValid: Bool {
         !title.isEmpty &&
         !author.isEmpty &&
         !quote.isEmpty &&
-        !(page <= 0)
+        !(page <= 0) 
+//        !(page > book!.length) //not good to force unwrap
     }
     
 }

@@ -35,7 +35,7 @@ final class EditQuoteViewModel: ObservableObject {
             do {
               try context.save()
             } catch {
-                
+                print(error)
             }
         }
     }

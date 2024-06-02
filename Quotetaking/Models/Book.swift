@@ -17,6 +17,7 @@ final class Book: NSManagedObject, Identifiable {
     @NSManaged var length: Int16
     @NSManaged var bookCover: Data?
     @NSManaged var percent: Double
+    @NSManaged var quotes: NSSet?
     
     var isValid: Bool {
         !title.isEmpty &&
@@ -25,6 +26,44 @@ final class Book: NSManagedObject, Identifiable {
         !(length <= 0) &&
         progress <= length
     }
+    
+    public var getQuotesAsArray: [Quote] {
+        let set = quotes as? Set<Quote> ?? []
+        
+        return set.sorted {
+            $0.page < $1.page
+        }
+    }
+    
+    public func filterQuotes(with config: SearchConfig, order: SortOrder, type: QuoteSortType) -> [Quote] {
+        var set = getQuotesAsArray
+//        DispatchQueue.main.async {
+            if !config.query.isEmpty {
+                set = set.filter{ $0.quote.localizedCaseInsensitiveContains(config.query) }
+            }
+            
+            switch type {
+            case .quote:
+                return (set as NSArray).sortedArray(using: [NSSortDescriptor(keyPath: \Quote.quote, ascending: order == .asc), NSSortDescriptor(keyPath: \Quote.page, ascending: order == .asc)]) as! [Quote]
+            case .page:
+                return (set as NSArray).sortedArray(using: [NSSortDescriptor(keyPath: \Quote.page, ascending: order == .asc), NSSortDescriptor(keyPath: \Quote.quote, ascending: order == .asc)]) as! [Quote]
+            }
+//        }
+//        return set
+    }
+    
+}
+
+extension Book {
+    @objc(addQuoteObject:)
+    @NSManaged public func addToQuote(_ value: Quote)
+    @objc(removeQuoteObject:)
+    @NSManaged public func removeFromQuote(_ value: Quote)
+    @objc(addQuote:)
+    @NSManaged public func addToQuote(_ values: NSSet)
+    @objc(removeQuote:)
+    @NSManaged public func removeFromQuote(_ values: NSSet)
+    
     
 }
 
@@ -58,6 +97,18 @@ extension Book {
         }
     }
 }
+
+//extension Book {
+//    public func addToQuotes(_ quote: Quote) {
+//        self.quotes.insert(quote)
+//    }
+//    
+//    public func removefromQuotes(_ quote: Quote){
+//        self.quotes.remove(quote)
+//    }
+//    
+//    
+//}
 
 extension Book {
     

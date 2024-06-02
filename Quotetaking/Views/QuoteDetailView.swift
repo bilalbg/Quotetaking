@@ -11,76 +11,99 @@ import ChatGPTSwift
 //page to display a full quote on its own
 struct QuoteDetailView: View {
     
+    struct BookInfo: Equatable {
+        var title: String = ""
+        var author: String = ""
+    }
+    
     let api = ChatGPTAPI(apiKey: Bundle.main.infoDictionary?["API_KEY"]  as? String ?? "not found")
+    
+    @State private var quoteToEdit: Quote?
     @State private var explanation: String?
     @State private var explanationReceived: Bool = false
+//    @State private var book: Book?
     
     @ObservedObject var quote: Quote
     @ObservedObject var vm: EditQuoteViewModel
     
-    @State private var scrollViewContentSize: CGSize = .zero
+//    @State private var scrollViewContentSize: CGSize = .zero
+    
+    var provider = BooksProvider.shared
+    var bookInfo: BookInfo {
+        return BookInfo.init(title: quote.book!.title, author: quote.book!.author)
+    }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            ViewThatFits {
-                Text(quote.quote)
-                    .font(.system(size: 18).italic())
-                ScrollView {
-                    Text(quote.quote)
-                        .font(.system(size: 18).italic())
-                        .background(
-                            GeometryReader { geo in
-                                Color.clear
-                                    .onAppear {
-                                        Task { @MainActor in
-                                            scrollViewContentSize = geo.size
-                                        }
-                                    }
-                            }
-                        )
-                }
-                .frame(maxHeight: scrollViewContentSize.height > 200 ? 300 : 150)
-                .scrollBounceBehavior(.basedOnSize, axes: [.vertical])
-            }
+        TabView {
+                VStack(alignment: .leading, spacing: 8) {
+                    ViewThatFits {
+                        Text(quote.quote)
+                            .font(.system(size: 18).italic())
+                    }
 
+                        
+                    HStack {
+                        Text(" — \(bookInfo.author), \(quote.page)")
+                            .font(.system(size: 16, design: .rounded).bold())
+                    }
+                    
+                    Text(bookInfo.title)
+                }
+                .padding()
+                .frame(width: UIScreen.main.bounds.width)
                 
-            HStack {
-                Text(" — \(quote.author), \(quote.page)")
-                    .font(.system(size: 16, design: .rounded).bold())
+//                VStack{
+//                    Text(vm.quote.explanation ?? "Use the AI Explanation button to get an explanation and more context on the quote here")
+//                    .font(.system(size: 12).italic())
+//                    .padding()
+//                    .scrollBounceBehavior(.basedOnSize, axes: [.vertical])
+//                }
+//                .frame(width: UIScreen.main.bounds.width)
+            VStack {
+                Text(quote.notes != nil && !quote.notes!.isEmpty ? quote.notes! : "Add Notes to see them here")
+                    .font(.system(size: 12).italic())
             }
-            Text(quote.title)
         }
-        .padding()
+        .tabViewStyle(PageTabViewStyle())
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    quoteToEdit = vm.quote
+                } label: {
+                    Label("Edit", systemImage: "pencil")
+                }
+            }
+        }
+        .sheet(item: $quoteToEdit, onDismiss: {
+            quoteToEdit = nil
+        }, content: { quote in
+            NavigationStack {
+                AddQuoteView(vm: .init(provider: provider,
+                                       quote: quote,
+                                       title: bookInfo.title,
+                                       author: bookInfo.author))
+            }
+            
+        })
+        
         Section {
             HStack {
                 ShareLink("Share Quote", item: quoteToFormat(quote))
                     .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
                 
-                Button(action: {
-                    getExplanation(quote.quote, quote.author, quote.title)
-                }) {
-                    Text("AI Explanation")
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle( BorderlessButtonStyle())
-                .disabled(vm.quote.explanation != nil)
+//                Button(action: {
+//                    getExplanation(quote.quote, quote.author, quote.title)
+//                }) {
+//                    Text("AI Explanation")
+//                        .frame(maxWidth: .infinity)
+//                }
+//                .buttonStyle( BorderlessButtonStyle())
+//                .disabled(vm.quote.explanation != nil)
             }
             .padding()
-            VStack{
-                if let AiExplanation = vm.quote.explanation {
-                    ScrollView {
-                        Text(AiExplanation)
-                            .font(.system(size: 12).italic())
-                            .padding()
-                    }
-                    .frame(maxHeight: 250)
-                    .scrollBounceBehavior(.basedOnSize, axes: [.vertical])
-                }
-            }
         }
         .onChange(of: explanationReceived) {
             print(explanationReceived)
-            explanationReceived.toggle()
             print("Toggle")
             updateQuote()
             

@@ -29,6 +29,7 @@ final class EditBookViewModel: ObservableObject {
     
     func save() throws {
         try provider.persist(in: context)
+//        print(context.hasChanges)
         if context.hasChanges {
             do {
               try context.save()

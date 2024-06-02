@@ -32,6 +32,7 @@ struct BooksProvider {
         }
         
         persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
+        persistentContainer.viewContext.mergePolicy = NSMergePolicy(merge: NSMergePolicyType.mergeByPropertyObjectTrumpMergePolicyType)
         persistentContainer.loadPersistentStores { _, error in
             if let error {
                 fatalError("Unable to load store with error: \(error)")
