@@ -175,9 +175,9 @@ struct ContentView: View {
                 if let quotes = book.quotes {
                     let quoteList = quotes.allObjects as! [Quote]
 //                    print(book.title)
-                    DispatchQueue.main.async {
-                        sqliteFTSServices.bulkInsertFTSTable(quotes: quoteList)
-                    }
+//                    DispatchQueue.main.async {
+//                        sqliteFTSServices.bulkInsertFTSTable(quotes: quoteList)
+//                    }
                     DispatchQueue.main.async {
                         sqliteFTSServices.bulkInsertQuoteTable(quotes: quoteList)
                     }

@@ -15,20 +15,23 @@ class SQLiteFTSServices: ObservableObject {
     
     private func createQuotesFTSTable() {
         let errMSG: UnsafeMutablePointer<UnsafeMutablePointer<Int8>?>? = nil
-        let sqlStatement = "CREATE VIRTUAL TABLE IF NOT EXISTS qotsrchFTS USING FTS4(title, quote);"
+//        let sqlStatement = "CREATE VIRTUAL TABLE IF NOT EXISTS qotsrchFTS USING FTS4(title, quote);"
+        let sqlStatement = "CREATE TABLE quotes (_id INTEGER PRIMARY KEY, title TEXT, quote TEXT, author TEXT, page INTEGER, notes TEXT);"
+        //make this a regular SQLite table instead, then query on FTS and join with this table
         if sqlite3_exec(self.sqliteManager.sqliteDB, sqlStatement, nil, nil, errMSG) == SQLITE_OK {
-            print("created table")
+            print("created table quotes")
         } else {
-            print("failed to create")
+            print("failed to create q")
         }
     }
     private func createQotSrchFTSTable() {
         let errMSG: UnsafeMutablePointer<UnsafeMutablePointer<Int8>?>? = nil
-        let sqlStatement = "CREATE VIRTUAL TABLE IF NOT EXISTS quotesFTS USING FTS4(title, quote, author, page, notes);"
+//        let sqlStatement = "CREATE TABLE IF NOT EXISTS quotes USING (title, quote, author, page, notes);"
+        let sqlStatement = "CREATE VIRTUAL TABLE IF NOT EXISTS quotesFTS USING FTS4(content='quotes', quote);"
         if sqlite3_exec(self.sqliteManager.sqliteDB, sqlStatement, nil, nil, errMSG) == SQLITE_OK {
-            print("created table")
+            print("created table quotes FTS")
         } else {
-            print("failed to create")
+            print("failed to create FTS")
         }
     }
     
@@ -37,6 +40,11 @@ class SQLiteFTSServices: ObservableObject {
         let sqlStatement = "DROP TABLE IF EXISTS qotsrchFTS;"
         if sqlite3_exec(self.sqliteManager.sqliteDB, sqlStatement, nil, nil, errMSG) == SQLITE_OK {
             print("dropped table")
+        }
+        let errMSG2: UnsafeMutablePointer<UnsafeMutablePointer<Int8>?>? = nil
+        let sqlStatement2 = "DROP TABLE IF EXISTS quotesFTS;"
+        if sqlite3_exec(self.sqliteManager.sqliteDB, sqlStatement2, nil, nil, errMSG2) == SQLITE_OK {
+            print("dropped table 2")
         }
     }
     private func dropQuotesFTSTable() {
@@ -74,7 +82,7 @@ class SQLiteFTSServices: ObservableObject {
             return
         }
         
-        statement = "insert into quotesFTS (title, quote, author, page, notes) values (?, ?, ?, ?, ?)"
+        statement = "insert into quotes (title, quote, author, page, notes) values (?, ?, ?, ?, ?)"
         var compiledStatement: OpaquePointer? = nil
         
         if sqlite3_prepare_v2(self.sqliteManager.sqliteDB, statement, -1, &compiledStatement, nil) == SQLITE_OK {
@@ -124,6 +132,56 @@ class SQLiteFTSServices: ObservableObject {
         sqlite3_finalize(compiledStatement)
         sqlite3_finalize(commitStatement)
         print("FINALIZE")
+        insertFromTabletoFTSTable()
+    }
+    
+    func insertFromTabletoFTSTable() {
+        var insertStatement: OpaquePointer? = nil
+        var statement = "BEGIN EXCLUSIVE TRANSACTION"
+        
+        if sqlite3_prepare_v2(self.sqliteManager.sqliteDB, statement, -1, &insertStatement, nil) != SQLITE_OK {
+            print("db error: %s\n", sqlite3_errmsg(self.sqliteManager.sqliteDB) ?? "")
+            return
+        }
+        
+        if sqlite3_step(insertStatement) != SQLITE_DONE {
+            sqlite3_finalize(insertStatement)
+            print("db error: %s\n", sqlite3_errmsg(self.sqliteManager.sqliteDB) ?? "")
+            return
+        }
+        
+        statement = "INSERT INTO quotesFTS (docid, quote) SELECT _id, quote FROM quotes"
+        var compiledStatement: OpaquePointer? = nil
+        
+        if sqlite3_prepare_v2(self.sqliteManager.sqliteDB, statement, -1, &compiledStatement, nil) == SQLITE_OK {
+            while true {
+                let result = sqlite3_step(compiledStatement)
+                if result == SQLITE_DONE {
+                    print("DONE")
+                    break
+                } else if result != SQLITE_BUSY {
+                    print("db error: %s\n", sqlite3_errmsg(self.sqliteManager.sqliteDB) ?? "")
+                }
+            }
+        }
+        
+        statement = "COMMIT TRANSACTION"
+        var commitStatement: OpaquePointer? = nil
+        
+        if sqlite3_prepare_v2(self.sqliteManager.sqliteDB, statement, -1, &commitStatement, nil) != SQLITE_OK {
+            print("db error: %s\n", sqlite3_errmsg(self.sqliteManager.sqliteDB) ?? "")
+            return
+        }
+        
+        if sqlite3_step(commitStatement) != SQLITE_DONE {
+            sqlite3_finalize(insertStatement)
+            print("db error: %s\n", sqlite3_errmsg(self.sqliteManager.sqliteDB) ?? "")
+            return
+        }
+        
+        sqlite3_finalize(compiledStatement)
+        sqlite3_finalize(commitStatement)
+        print("FINALIZE")
     }
     
     func bulkInsertFTSTable(quotes: [Quote]) {
@@ -142,7 +200,7 @@ class SQLiteFTSServices: ObservableObject {
             return
         }
         
-        statement = "insert into qotsrchFTS (title, quote) values (?, ?)"
+        statement = "insert into quotesFTS (title, quote) values (?, ?)"
         var compiledStatement: OpaquePointer? = nil
         
         if sqlite3_prepare_v2(self.sqliteManager.sqliteDB, statement, -1, &compiledStatement, nil) == SQLITE_OK {
@@ -202,7 +260,7 @@ class SQLiteFTSServices: ObservableObject {
             return
         }
         
-        statement = "insert into quotesFTS (title, quote, author, page, notes) values (?, ?, ?, ?, ?)"
+        statement = "insert into quotes (title, quote, author, page, notes) values (?, ?, ?, ?, ?)"
         var compiledStatement: OpaquePointer? = nil
         
         if sqlite3_prepare_v2(self.sqliteManager.sqliteDB, statement, -1, &compiledStatement, nil) == SQLITE_OK {
@@ -263,7 +321,7 @@ class SQLiteFTSServices: ObservableObject {
             return
         }
         
-        statement = "insert into qotsrchFTS (title, quote) values (?, ?)"
+        statement = "insert into quotesFTS (title, quote) values (?, ?)"
         var compiledStatement: OpaquePointer? = nil
         
         if sqlite3_prepare_v2(self.sqliteManager.sqliteDB, statement, -1, &compiledStatement, nil) == SQLITE_OK {
@@ -309,11 +367,11 @@ class SQLiteFTSServices: ObservableObject {
         
         var selectStatement: OpaquePointer? = nil
 //        var selectSql: String = ""
-//        let selectSql = "SELECT qotsrchFTS.title, qotsrchFTS.quote, quotesFTS.author , quotesFTS.page, quotesFTS.notes FROM qotsrchFTS MATCH qotsrchFTS.title:'\(searchBook)' RIGHT JOIN quotesFTS ON qotsrchFTS.title = quotesFTS.title ORDER BY quotesFTS.page DESC"
+//        let selectSql = "SELECT quotesFTS.title, quotesFTS.quote, quotesFTS.author , quotesFTS.page, quotesFTS.notes FROM quotesFTS MATCH quotesFTS.title:'\(searchBook)' RIGHT JOIN quotesFTS ON quotesFTS.title = quotesFTS.title ORDER BY quotesFTS.page DESC"
         
         
-//        let selectSql = "SELECT qotsrchFTS.title, qotsrchFTS.quote, quotesFTS.author , quotesFTS.page, quotesFTS.notes FROM qotsrchFTS RIGHT JOIN quotesFTS ON qotsrchFTS.quote = quotesFTS.quote WHERE qotsrchFTS.title = '\(searchBook)' ORDER BY quotesFTS.page DESC"
-        let selectSql = "SELECT * FROM quotesFTS WHERE title MATCH '\(searchBook)' ORDER BY page ASC"
+//        let selectSql = "SELECT quotesFTS.title, quotesFTS.quote, quotesFTS.author , quotesFTS.page, quotesFTS.notes FROM quotesFTS RIGHT JOIN quotesFTS ON quotesFTS.quote = quotesFTS.quote WHERE quotesFTS.title = '\(searchBook)' ORDER BY quotesFTS.page DESC"
+        let selectSql = "SELECT * FROM quotes WHERE title = '\(searchBook)' ORDER BY page ASC"
         
         if sqlite3_prepare_v2(self.sqliteManager.sqliteDB, selectSql, -1, &selectStatement, nil) == SQLITE_OK {
             while sqlite3_step(selectStatement) == SQLITE_ROW {
@@ -342,12 +400,13 @@ class SQLiteFTSServices: ObservableObject {
         var selectSql: String = ""
         if searchBook != "" {
 //            selectSql = "SELECT * FROM quotesFTS MATCH title:'\(searchBook)' AND quote:'\(searchString)'"
-            selectSql = "SELECT qotsrchFTS.title, qotsrchFTS.quote, quotesFTS.author , quotesFTS.page, quotesFTS.notes FROM qotsrchFTS RIGHT JOIN quotesFTS ON qotsrchFTS.quote = quotesFTS.quote WHERE qotsrchFTS.title = '\(searchBook)' AND  qotsrchFTS.quote LIKE '\(searchString)*' ORDER BY quotesFTS.page ASC"
+            selectSql = "SELECT quotesFTS.title, quotesFTS.quote, quotesFTS.author , quotesFTS.page, quotesFTS.notes FROM quotesFTS RIGHT JOIN quotesFTS ON quotesFTS.quote = quotesFTS.quote WHERE quotesFTS.title = '\(searchBook)' AND  quotesFTS.quote LIKE '\(searchString)*' ORDER BY quotesFTS.page ASC"
         } else {
 //            selectSql = "SELECT * FROM quotesFTS MATCH quote:'\(searchString)'"
-            selectSql = "SELECT qotsrchFTS.title, qotsrchFTS.quote, quotesFTS.author, quotesFTS.page, quotesFTS.notes FROM qotsrchFTS RIGHT JOIN quotesFTS ON qotsrchFTS.title = quotesFTS.title WHERE qotsrchFTS.quote MATCH '\(searchString)*' ORDER BY quotesFTS.page ASC"
+            selectSql = "SELECT quotesFTS.title, quotesFTS.quote, quotesFTS.author, quotesFTS.page, quotesFTS.notes FROM quotesFTS RIGHT JOIN quotesFTS ON quotesFTS.title = quotesFTS.title WHERE quotesFTS.quote MATCH '\(searchString)*' ORDER BY quotesFTS.page ASC"
         }
-        selectSql = "SELECT * FROM quotesFTS where quotesFTS MATCH '\(searchString)*'"
+//        selectSql = "SELECT * FROM quotesFTS where quotesFTS MATCH '\(searchString)*'"
+        selectSql = "SELECT * FROM quotes WHERE _id IN (SELECT docid FROM quotesFTS where quotesFTS MATCH '\(searchString)*') and title = '\(searchBook)' ORDER BY page ASC"
 //        selectSql = "SELECT * FROM quotesFTS WHERE quote LIKE '\(searchString)*' AND title MATCH '\(searchBook)' ORDER BY page ASC"
 //        print("select sql")
         if sqlite3_prepare_v2(self.sqliteManager.sqliteDB, selectSql, -1, &selectStatement, nil) == SQLITE_OK {

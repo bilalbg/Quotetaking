@@ -30,7 +30,7 @@ struct QuoteDetailView: View {
     
     var provider = BooksProvider.shared
     var bookInfo: BookInfo {
-        return BookInfo.init(title: quote.book!.title, author: quote.book!.author)
+        return BookInfo.init(title: quote.title, author: quote.author)
     }
     
     var body: some View {

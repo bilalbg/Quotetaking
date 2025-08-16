@@ -43,6 +43,7 @@ struct BookQuotesView: View {
         VStack(alignment: .leading, spacing: 8) {
             
             List {
+                Text(bookQuotes.count.description + " quotes")
                 ForEach(0..<bookQuotes.count, id: \.self) { index in
                     if(index < historyPagination) {
                         NavigationLink(destination: QuoteDetailView(quote: self.bookQuotes[index],
