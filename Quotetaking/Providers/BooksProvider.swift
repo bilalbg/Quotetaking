@@ -8,12 +8,20 @@
 import Foundation
 import CoreData
 import SwiftUI
+import Combine
 
 
 struct BooksProvider {
     static let shared = BooksProvider()
     
     private let persistentContainer: NSPersistentContainer
+//    private var subscriptions: Set<AnyCancellable> = []
+    
+//    let storeCoordinator: NSPersistentStoreCoordinator  {
+//        do {
+//
+//        }
+//    }
     
     var viewContext: NSManagedObjectContext {
         persistentContainer.viewContext
@@ -30,6 +38,12 @@ struct BooksProvider {
         if EnvironmentValues.isPreview || Thread.current.isRunningXCTest {
             persistentContainer.persistentStoreDescriptions.first?.url = .init(fileURLWithPath: "/dev/null")
         }
+        guard let description = persistentContainer.persistentStoreDescriptions.first else {
+            fatalError("###\(#function): Failed to retrieve persistent store desc.")
+        }
+        
+        description.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
+        description.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
         
         persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
         persistentContainer.viewContext.mergePolicy = NSMergePolicy(merge: NSMergePolicyType.mergeByPropertyObjectTrumpMergePolicyType)
@@ -81,6 +95,36 @@ struct BooksProvider {
         }
     }
 }
+
+extension BooksProvider {
+    func exportData() {
+        let storeCoordinator: NSPersistentStoreCoordinator = persistentContainer.persistentStoreCoordinator
+//        persistentContainer.persistentStoreCoordinator.backupFile
+        do {
+            let backupFile = try storeCoordinator.backupPersistentStore(atIndex: 0)
+
+            defer {
+                    // Delete temporary directory when done
+                    try! backupFile.deleteDirectory()
+                }
+                print("The backup is at \"\(backupFile.fileURL.path)\"")
+                // Do something with backupFile.fileURL
+                // Move it to a permanent location, send it to the cloud, etc.
+                // ...
+            } catch {
+                print("Error backing up Core Data store: \(error)")
+            }
+    }
+    
+    func importData() throws {
+//        guard let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+//            throw fatalError("i.e")
+//        }
+//        let documentPicker = DocumentPicker(presentationController: self, delegate: self)
+        
+    }
+}
+
 
 extension EnvironmentValues {
     static var isPreview: Bool {

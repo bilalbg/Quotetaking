@@ -8,6 +8,7 @@
 import Foundation
 import CoreData
 import SwiftUI
+import SQLite3
 
 final class Book: NSManagedObject, Identifiable {
     
@@ -77,6 +78,10 @@ extension Book {
         request.sortDescriptors = [
             NSSortDescriptor(keyPath: \Book.title, ascending: true)
         ]
+        
+        
+        
+        
         return request
     }
     

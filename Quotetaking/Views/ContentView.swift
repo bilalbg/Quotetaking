@@ -12,16 +12,21 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject var sqliteFTSServices: SQLiteFTSServices
     
     @FetchRequest(fetchRequest: Book.all()) private var books
     
     @State private var bookToEdit: Book?
     @State private var searchConfig: SearchConfig = .init()
     @State private var sortOrder: SortOrder = .asc
+    @State private var showFilePicker = false
     @State private var sortType: BookSortType = .title
     @State private var isActive = false
+    @State private var doc: Document?
+//    @State private var docPicker = DocumentPickerViewController()
     
     var provider = BooksProvider.shared
+//    private var sqliteFTSServices = SQLiteFTSServices(sqliteManager: sqliteManager)
     
     var body: some View {
         NavigationView {
@@ -29,7 +34,7 @@ struct ContentView: View {
                 if !books.isEmpty {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum:100))], spacing: 5) {
                         ForEach(books) { book in
-                            NavigationLink(destination: BookQuotesView(book: book)) {
+                            NavigationLink(destination: BookQuotesView(book: book/*, quotesVM: QuoteViewModel(quotes: book.getQuotesAsArray)*/)) {
                                 BookView(book: book)
                             }
                             .buttonStyle(PlainButtonStyle())
@@ -90,7 +95,6 @@ struct ContentView: View {
                             .symbolVariant(.circle)
                             .font(.title2)
                     }
-                    
                 }
             }
             .sheet(item: $bookToEdit, onDismiss: {
@@ -103,6 +107,7 @@ struct ContentView: View {
             })
             .navigationTitle("Your books")
             .onChange(of: searchConfig) {
+//                books.nsPredicate = NSPredicate(format: <#T##String#>)
                 books.nsPredicate = Book.filter(with: searchConfig)
             }
             .onChange(of: sortOrder) {
@@ -116,16 +121,81 @@ struct ContentView: View {
         .onAppear {
             books.nsSortDescriptors = Book.sortType(type: sortType, order: sortOrder)
         }
+        .sheet(isPresented: $showFilePicker) {
+//            Text("")
+            
+            docPicker(doc: $doc)
+        }
+        
+        
+            Button {
+                dropTables()
+                
+            } label: {
+                Label("Drop sqlite tables", systemImage: "plus")
+            }
+            Button {
+                insertToSqlite()
+                
+            } label: {
+                Label("Insert into sqlite", systemImage: "plus")
+            }
+            Button {
+                provider.exportData()
+                
+            } label: {
+                Label("Export", systemImage: "plus")
+            }
+            Button {
+                
+                showFilePicker.toggle()
+                
+            } label: {
+                Label("Import", systemImage: "plus")
+            }
+//                            Label("Export")
+//                                .onTapGesture {
+//                                    provider.exportData()
+//                                }
+//                            Label("Import")
+    }
+    func dropTables() {
+        DispatchQueue.global().async {
+            self.sqliteFTSServices.dropTables()
+        }
+    }
+    
+    func insertToSqlite() {
+//        var res: Bool = false
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            let bookList = books
+//            res = true
+            for book in bookList {
+                if let quotes = book.quotes {
+                    let quoteList = quotes.allObjects as! [Quote]
+//                    print(book.title)
+                    DispatchQueue.main.async {
+                        sqliteFTSServices.bulkInsertFTSTable(quotes: quoteList)
+                    }
+                    DispatchQueue.main.async {
+                        sqliteFTSServices.bulkInsertQuoteTable(quotes: quoteList)
+                    }
+                }
+            }
+        }
     }
 }
 
 
 
+
+
 #Preview {
     let preview = BooksProvider.shared
-    return ContentView(provider: preview)
+    ContentView()
         .environment(\.managedObjectContext, preview.viewContext)
-        .previewDisplayName("Books with Data")
+//        .previewDisplayName("Books with Data")
         .onAppear {
             Book.makePreview(count: 10, in: preview.viewContext)
         }

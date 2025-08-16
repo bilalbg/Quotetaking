@@ -19,6 +19,15 @@
 		9E5A11432B360EFD000BB50B /* QuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5A11422B360EFD000BB50B /* QuoteView.swift */; };
 		9E5A11452B368798000BB50B /* LiveTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5A11442B368798000BB50B /* LiveTextView.swift */; };
 		9E5AEB4C2B37855B0015BD5B /* LiveTextInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5AEB4B2B37855B0015BD5B /* LiveTextInteraction.swift */; };
+		9E861A6B2CBB469800D39642 /* CoreData+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E861A6A2CBB469800D39642 /* CoreData+Convenience.swift */; };
+		9E861A6D2CBB4B9D00D39642 /* NSPersistentStoreCoordinator+backupPersistentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E861A6C2CBB4B9D00D39642 /* NSPersistentStoreCoordinator+backupPersistentStore.swift */; };
+		9E861A6F2CBB4BDA00D39642 /* TemporaryFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E861A6E2CBB4BDA00D39642 /* TemporaryFile.swift */; };
+		9E861A732CBB76CE00D39642 /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E861A722CBB76CE00D39642 /* DocumentPicker.swift */; };
+		9E861A752CBB773300D39642 /* DocumentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E861A742CBB773300D39642 /* DocumentPickerView.swift */; };
+		9EB4E8B12E4D8EE800D59C9B /* FMDB in Frameworks */ = {isa = PBXBuildFile; productRef = 9EB4E8B02E4D8EE800D59C9B /* FMDB */; };
+		9EB4E8B32E4D948C00D59C9B /* SQLiteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB4E8B22E4D948700D59C9B /* SQLiteManager.swift */; };
+		9EB4E8B52E4D95AC00D59C9B /* SQLiteFTSServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB4E8B42E4D95AB00D59C9B /* SQLiteFTSServices.swift */; };
+		9EB4E8B82E4D963200D59C9B /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EB4E8B72E4D963200D59C9B /* libsqlite3.0.tbd */; };
 		9ECE4C972B2E473F0048B4EE /* QuotetakingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4C962B2E473F0048B4EE /* QuotetakingApp.swift */; };
 		9ECE4C992B2E473F0048B4EE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4C982B2E473F0048B4EE /* ContentView.swift */; };
 		9ECE4C9B2B2E47400048B4EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9ECE4C9A2B2E47400048B4EE /* Assets.xcassets */; };
@@ -33,8 +42,10 @@
 		9ECE4CDD2B2FF2A60048B4EE /* QuoteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4CDC2B2FF2A60048B4EE /* QuoteDetailView.swift */; };
 		9ECE4CDF2B2FF9CE0048B4EE /* AddBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4CDE2B2FF9CE0048B4EE /* AddBookView.swift */; };
 		9ECE4CE42B3148980048B4EE /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE4CE32B3148980048B4EE /* ImagePicker.swift */; };
-		9EE2DCDB2BE3316100083893 /* ChatGPTSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9EE2DCDA2BE3316100083893 /* ChatGPTSwift */; };
 		9EF563C32C0CEFF50081AEB8 /* OperatorOverload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF563C22C0CEFF50081AEB8 /* OperatorOverload.swift */; };
+		9EF563FD2C250A100081AEB8 /* QuoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF563FC2C250A100081AEB8 /* QuoteViewModel.swift */; };
+		9EF563FF2C2511280081AEB8 /* ListPagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF563FE2C2511280081AEB8 /* ListPagination.swift */; };
+		9EF564012C2512CF0081AEB8 /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF564002C2512CF0081AEB8 /* SpinnerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,11 +73,20 @@
 		9E1491602B33FEEC008D028E /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		9E1491622B33FEF7008D028E /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
 		9E1491642B340D5F008D028E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		9E5217A62CBB347D001867E3 /* Quotetaking.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Quotetaking.entitlements; sourceTree = "<group>"; };
 		9E5A113E2B353941000BB50B /* EditQuoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditQuoteViewModel.swift; sourceTree = "<group>"; };
 		9E5A11402B35FD22000BB50B /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		9E5A11422B360EFD000BB50B /* QuoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteView.swift; sourceTree = "<group>"; };
 		9E5A11442B368798000BB50B /* LiveTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTextView.swift; sourceTree = "<group>"; };
 		9E5AEB4B2B37855B0015BD5B /* LiveTextInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTextInteraction.swift; sourceTree = "<group>"; };
+		9E861A6A2CBB469800D39642 /* CoreData+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreData+Convenience.swift"; sourceTree = "<group>"; };
+		9E861A6C2CBB4B9D00D39642 /* NSPersistentStoreCoordinator+backupPersistentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPersistentStoreCoordinator+backupPersistentStore.swift"; sourceTree = "<group>"; };
+		9E861A6E2CBB4BDA00D39642 /* TemporaryFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryFile.swift; sourceTree = "<group>"; };
+		9E861A722CBB76CE00D39642 /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
+		9E861A742CBB773300D39642 /* DocumentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerView.swift; sourceTree = "<group>"; };
+		9EB4E8B22E4D948700D59C9B /* SQLiteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteManager.swift; sourceTree = "<group>"; };
+		9EB4E8B42E4D95AB00D59C9B /* SQLiteFTSServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteFTSServices.swift; sourceTree = "<group>"; };
+		9EB4E8B72E4D963200D59C9B /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		9ECE4C932B2E473F0048B4EE /* Quotetaking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quotetaking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9ECE4C962B2E473F0048B4EE /* QuotetakingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotetakingApp.swift; sourceTree = "<group>"; };
 		9ECE4C982B2E473F0048B4EE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -87,6 +107,9 @@
 		9EE2DCD82B7C1C6500083893 /* PrivacyPolicy.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = PrivacyPolicy.md; sourceTree = "<group>"; };
 		9EE725662B3E242500E41348 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		9EF563C22C0CEFF50081AEB8 /* OperatorOverload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperatorOverload.swift; sourceTree = "<group>"; };
+		9EF563FC2C250A100081AEB8 /* QuoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteViewModel.swift; sourceTree = "<group>"; };
+		9EF563FE2C2511280081AEB8 /* ListPagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPagination.swift; sourceTree = "<group>"; };
+		9EF564002C2512CF0081AEB8 /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +117,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9EE2DCDB2BE3316100083893 /* ChatGPTSwift in Frameworks */,
+				9EB4E8B82E4D963200D59C9B /* libsqlite3.0.tbd in Frameworks */,
+				9EB4E8B12E4D8EE800D59C9B /* FMDB in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,9 +142,21 @@
 		9E14915B2B33FAF6008D028E /* Providers */ = {
 			isa = PBXGroup;
 			children = (
+				9EB4E8B22E4D948700D59C9B /* SQLiteManager.swift */,
 				9E14915C2B33FB00008D028E /* BooksProvider.swift */,
+				9E861A6A2CBB469800D39642 /* CoreData+Convenience.swift */,
+				9E861A6C2CBB4B9D00D39642 /* NSPersistentStoreCoordinator+backupPersistentStore.swift */,
+				9EB4E8B42E4D95AB00D59C9B /* SQLiteFTSServices.swift */,
 			);
 			path = Providers;
+			sourceTree = "<group>";
+		};
+		9EB4E8B62E4D963200D59C9B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9EB4E8B72E4D963200D59C9B /* libsqlite3.0.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		9ECE4C8A2B2E473F0048B4EE = {
@@ -132,6 +168,7 @@
 				9ECE4C952B2E473F0048B4EE /* Quotetaking */,
 				9ECE4CAB2B2E47400048B4EE /* QuotetakingTests */,
 				9ECE4CB52B2E47400048B4EE /* QuotetakingUITests */,
+				9EB4E8B62E4D963200D59C9B /* Frameworks */,
 				9ECE4C942B2E473F0048B4EE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -149,6 +186,8 @@
 		9ECE4C952B2E473F0048B4EE /* Quotetaking */ = {
 			isa = PBXGroup;
 			children = (
+				9E5217A62CBB347D001867E3 /* Quotetaking.entitlements */,
+				9EF563FB2C2509FF0081AEB8 /* ViewModel */,
 				9EF563C12C0CEFE90081AEB8 /* Helpers */,
 				9EE725662B3E242500E41348 /* Info.plist */,
 				9E14915B2B33FAF6008D028E /* Providers */,
@@ -213,6 +252,9 @@
 				9E5A113E2B353941000BB50B /* EditQuoteViewModel.swift */,
 				9E5A11422B360EFD000BB50B /* QuoteView.swift */,
 				9E5A11442B368798000BB50B /* LiveTextView.swift */,
+				9EF563FE2C2511280081AEB8 /* ListPagination.swift */,
+				9EF564002C2512CF0081AEB8 /* SpinnerView.swift */,
+				9E861A742CBB773300D39642 /* DocumentPickerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -237,8 +279,18 @@
 			isa = PBXGroup;
 			children = (
 				9EF563C22C0CEFF50081AEB8 /* OperatorOverload.swift */,
+				9E861A6E2CBB4BDA00D39642 /* TemporaryFile.swift */,
+				9E861A722CBB76CE00D39642 /* DocumentPicker.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		9EF563FB2C2509FF0081AEB8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9EF563FC2C250A100081AEB8 /* QuoteViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,7 +310,7 @@
 			);
 			name = Quotetaking;
 			packageProductDependencies = (
-				9EE2DCDA2BE3316100083893 /* ChatGPTSwift */,
+				9EB4E8B02E4D8EE800D59C9B /* FMDB */,
 			);
 			productName = Quotetaking;
 			productReference = 9ECE4C932B2E473F0048B4EE /* Quotetaking.app */;
@@ -333,7 +385,7 @@
 			);
 			mainGroup = 9ECE4C8A2B2E473F0048B4EE;
 			packageReferences = (
-				9EE2DCD92BE3316100083893 /* XCRemoteSwiftPackageReference "ChatGPTSwift" */,
+				9EB4E8AF2E4D8EE800D59C9B /* XCRemoteSwiftPackageReference "fmdb" */,
 			);
 			productRefGroup = 9ECE4C942B2E473F0048B4EE /* Products */;
 			projectDirPath = "";
@@ -381,12 +433,21 @@
 			files = (
 				9ECE4CE42B3148980048B4EE /* ImagePicker.swift in Sources */,
 				9ECE4CA32B2E47400048B4EE /* Quotetaking.xcdatamodeld in Sources */,
+				9EF564012C2512CF0081AEB8 /* SpinnerView.swift in Sources */,
 				9ECE4CDB2B2FF2890048B4EE /* BookQuotesView.swift in Sources */,
 				9E1491612B33FEEC008D028E /* Book.swift in Sources */,
+				9EF563FF2C2511280081AEB8 /* ListPagination.swift in Sources */,
 				9E14915F2B33FB7A008D028E /* EditBookViewModel.swift in Sources */,
 				9ECE4CDD2B2FF2A60048B4EE /* QuoteDetailView.swift in Sources */,
+				9E861A6D2CBB4B9D00D39642 /* NSPersistentStoreCoordinator+backupPersistentStore.swift in Sources */,
+				9E861A6B2CBB469800D39642 /* CoreData+Convenience.swift in Sources */,
+				9EF563FD2C250A100081AEB8 /* QuoteViewModel.swift in Sources */,
+				9E861A752CBB773300D39642 /* DocumentPickerView.swift in Sources */,
 				9ECE4C992B2E473F0048B4EE /* ContentView.swift in Sources */,
 				9ECE4C972B2E473F0048B4EE /* QuotetakingApp.swift in Sources */,
+				9E861A732CBB76CE00D39642 /* DocumentPicker.swift in Sources */,
+				9EB4E8B32E4D948C00D59C9B /* SQLiteManager.swift in Sources */,
+				9E861A6F2CBB4BDA00D39642 /* TemporaryFile.swift in Sources */,
 				9E5A11432B360EFD000BB50B /* QuoteView.swift in Sources */,
 				9E5AEB4C2B37855B0015BD5B /* LiveTextInteraction.swift in Sources */,
 				9E1491632B33FEF7008D028E /* Quote.swift in Sources */,
@@ -395,6 +456,7 @@
 				9E5A11412B35FD22000BB50B /* Enums.swift in Sources */,
 				9EF563C32C0CEFF50081AEB8 /* OperatorOverload.swift in Sources */,
 				9E14915D2B33FB00008D028E /* BooksProvider.swift in Sources */,
+				9EB4E8B52E4D95AC00D59C9B /* SQLiteFTSServices.swift in Sources */,
 				9E045C262B35211700E40DEE /* CameraController.swift in Sources */,
 				9E5A11452B368798000BB50B /* LiveTextView.swift in Sources */,
 				9ECE4CD22B2E4D680048B4EE /* AddQuoteView.swift in Sources */,
@@ -559,11 +621,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Quotetaking/Quotetaking.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Quotetaking/Preview Content\"";
 				DEVELOPMENT_TEAM = 98HDZK9A4Z;
 				ENABLE_PREVIEWS = YES;
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
+					SQLITE_ENABLE_FTS3,
+					SQLITE_ENABLE_FTS3_PARENTHESIS,
+				);
+				"GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS[arch=*]" = (
+					SQLITE_ENABLE_FTS3,
+					SQLITE_ENABLE_FTS3_PARENTHESIS,
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Quotetaking/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Quotetaking needs access to your camera to take photos";
@@ -593,11 +664,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Quotetaking/Quotetaking.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Quotetaking/Preview Content\"";
 				DEVELOPMENT_TEAM = 98HDZK9A4Z;
 				ENABLE_PREVIEWS = YES;
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
+					SQLITE_ENABLE_FTS3,
+					SQLITE_ENABLE_FTS3_PARENTHESIS,
+				);
+				"GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS[arch=*]" = (
+					SQLITE_ENABLE_FTS3_PARENTHESIS,
+					SQLITE_ENABLE_FTS3,
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Quotetaking/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Quotetaking needs access to your camera to take photos";
@@ -740,21 +820,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		9EE2DCD92BE3316100083893 /* XCRemoteSwiftPackageReference "ChatGPTSwift" */ = {
+		9EB4E8AF2E4D8EE800D59C9B /* XCRemoteSwiftPackageReference "fmdb" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/alfianlosari/ChatGPTSwift.git";
+			repositoryURL = "https://github.com/ccgus/fmdb";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.2.1;
+				minimumVersion = 2.7.12;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		9EE2DCDA2BE3316100083893 /* ChatGPTSwift */ = {
+		9EB4E8B02E4D8EE800D59C9B /* FMDB */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 9EE2DCD92BE3316100083893 /* XCRemoteSwiftPackageReference "ChatGPTSwift" */;
-			productName = ChatGPTSwift;
+			package = 9EB4E8AF2E4D8EE800D59C9B /* XCRemoteSwiftPackageReference "fmdb" */;
+			productName = FMDB;
 		};
 /* End XCSwiftPackageProductDependency section */
 

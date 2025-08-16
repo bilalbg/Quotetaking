@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import ChatGPTSwift
+//import ChatGPTSwift
 
 //page to display a full quote on its own
 struct QuoteDetailView: View {
@@ -16,7 +16,7 @@ struct QuoteDetailView: View {
         var author: String = ""
     }
     
-    let api = ChatGPTAPI(apiKey: Bundle.main.infoDictionary?["API_KEY"]  as? String ?? "not found")
+//    let api = ChatGPTAPI(apiKey: Bundle.main.infoDictionary?["API_KEY"]  as? String ?? "not found")
     
     @State private var quoteToEdit: Quote?
     @State private var explanation: String?
@@ -52,13 +52,13 @@ struct QuoteDetailView: View {
                 .padding()
                 .frame(width: UIScreen.main.bounds.width)
                 
-//                VStack{
-//                    Text(vm.quote.explanation ?? "Use the AI Explanation button to get an explanation and more context on the quote here")
-//                    .font(.system(size: 12).italic())
-//                    .padding()
-//                    .scrollBounceBehavior(.basedOnSize, axes: [.vertical])
-//                }
-//                .frame(width: UIScreen.main.bounds.width)
+                VStack{
+                    Text(vm.quote.explanation ?? "Use the AI Explanation button to get an explanation and more context on the quote here")
+                    .font(.system(size: 12).italic())
+                    .padding()
+                    .scrollBounceBehavior(.basedOnSize, axes: [.vertical])
+                }
+                .frame(width: UIScreen.main.bounds.width)
             VStack {
                 Text(quote.notes != nil && !quote.notes!.isEmpty ? quote.notes! : "Add Notes to see them here")
                     .font(.system(size: 12).italic())
@@ -115,18 +115,18 @@ private extension QuoteDetailView {
     func quoteToFormat(_ quote: Quote) -> String {
         return "\"\(quote.quote)\", \(quote.author) \(quote.page), \(quote.title)"
     }
-    func getExplanation(_ quote: String, _ author: String, _ title: String)  {
-        let prompt = "Explain this quote \"\(quote)\" by \(author) from \(title). Reply N/A if you don't know the book or context."
-        Task {
-            do {
-                let response = try await api.sendMessage(text: prompt)
-                vm.quote.explanation = response
-                explanationReceived.toggle()
-            } catch {
-                print(error)
-            }
-        }
-    }
+//    func getExplanation(_ quote: String, _ author: String, _ title: String)  {
+//        let prompt = "Explain this quote \"\(quote)\" by \(author) from \(title). Reply N/A if you don't know the book or context."
+//        Task {
+//            do {
+//                let response = try await api.sendMessage(text: prompt)
+//                vm.quote.explanation = response
+//                explanationReceived.toggle()
+//            } catch {
+//                print(error)
+//            }
+//        }
+//    }
     func updateQuote() {
         if vm.quote.isValid {
             do {
