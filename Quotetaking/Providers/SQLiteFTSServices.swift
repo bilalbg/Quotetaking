@@ -366,10 +366,10 @@ class SQLiteFTSServices: ObservableObject {
         if sqlite3_prepare_v2(self.sqliteManager.sqliteDB, selectSql, -1, &selectStatement, nil) == SQLITE_OK {
             while sqlite3_step(selectStatement) == SQLITE_ROW {
                 let quote = Quote(context: viewContext)
-                quote.title = String(cString: sqlite3_column_text(selectStatement, 0))
-                quote.quote = String(cString: sqlite3_column_text(selectStatement, 1))
-                quote.author = String(cString: sqlite3_column_text(selectStatement, 2))
-                quote.page = Int16(sqlite3_column_int(selectStatement, 3))
+                quote.title = String(cString: sqlite3_column_text(selectStatement, 1))
+                quote.quote = String(cString: sqlite3_column_text(selectStatement, 2))
+                quote.author = String(cString: sqlite3_column_text(selectStatement, 3))
+                quote.page = Int16(sqlite3_column_int(selectStatement, 4))
                 quotes.append(quote)
             }
         }
@@ -395,10 +395,10 @@ class SQLiteFTSServices: ObservableObject {
         if sqlite3_prepare_v2(self.sqliteManager.sqliteDB, selectSql, -1, &selectStatement, nil) == SQLITE_OK {
             while sqlite3_step(selectStatement) == SQLITE_ROW {
                 let quote = Quote(context: viewContext)
-                quote.title = String(cString: sqlite3_column_text(selectStatement, 0))
-                quote.quote = String(cString: sqlite3_column_text(selectStatement, 1))
-                quote.author = String(cString: sqlite3_column_text(selectStatement, 2))
-                quote.page = Int16(sqlite3_column_int(selectStatement, 3))
+                quote.title = String(cString: sqlite3_column_text(selectStatement, 1))
+                quote.quote = String(cString: sqlite3_column_text(selectStatement, 2))
+                quote.author = String(cString: sqlite3_column_text(selectStatement, 3))
+                quote.page = Int16(sqlite3_column_int(selectStatement, 4))
                 quotes.append(quote)
             }
         }
