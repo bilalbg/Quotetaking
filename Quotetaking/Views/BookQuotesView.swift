@@ -22,7 +22,6 @@ struct BookQuotesView: View {
     @State private var sortType: QuoteSortType = .page
     @State private var submitted = false
     @State var isSearching = false
-//    var timer: Timer?
     
     @State var historyPagination: Int = 7
     @State var didHistoryPaginationFinishLoading: Bool = false
@@ -34,7 +33,6 @@ struct BookQuotesView: View {
         quotesRequest.nsSortDescriptors = Quote.sortType(type: sortType, order: sortOrder)
         return quotesRequest
     }
-//    private var sqliteFTSServices = SQLiteFTSServices(sqliteManager: SQLiteManager(fileManager: FileManager()))
     @State var lastSearch = ""
     
    @State var bookQuotes: [Quote] = []
@@ -100,39 +98,6 @@ struct BookQuotesView: View {
                 }
             }
             
-//            List {
-//                
-//                
-//                ForEach(book.filterQuotes(with: searchConfig, order: sortOrder, type: sortType)) { quote in
-//                    //                ForEach(quotes) { quote in
-//                    
-//                    NavigationLink(destination: QuoteDetailView(quote: quote,
-//                                                                vm: .init(provider: provider,
-//                                                                quote: quote,
-//                                                                title: book.title,
-//                                                                author: book.author))
-//                    ) {
-//                        QuoteView(quote: quote)
-//                    }
-//                      .buttonStyle(PlainButtonStyle())
-//                      .contextMenu(ContextMenu(menuItems: {
-//                          Button {
-//                              do {
-//                                  try provider.deleteQuote(quote, in: provider.newViewContext)
-//                              } catch {
-//                                  print(error)
-//                              }
-//                          } label: {
-//                              Label("Delete", systemImage: "trash")
-//                          }
-//                          Button {
-//                              quoteToEdit = quote
-//                          } label: {
-//                              Label("Edit", systemImage: "pencil")
-//                          }
-//                      }))
-//                }
-//            }
             .environment(\.defaultMinListRowHeight, 0)
             .searchable(text: $searchConfig.query)
             .navigationTitle("Quotes for \(book.title)")
@@ -201,7 +166,6 @@ struct BookQuotesView: View {
         }
         .onChange(of: searchConfig) {
             searchQuotes(text: searchConfig.query)
-//            bookQuotes book.filterQuotes(with: searchConfig, order: sortOrder, type: sortType)
         }
         .onAppear() {
             bookQuotes = book.filterQuotes(with: searchConfig, order: sortOrder, type: sortType)
@@ -211,18 +175,9 @@ struct BookQuotesView: View {
     func searchQuotes(text: String) {
         isSearching = true
         let start = Date().timeIntervalSince1970
-//        var bookQuotes = [Quote]()
         DispatchQueue.global(qos: .userInitiated).async {
             bookQuotes = sqliteFTSServices.findQuotes(searchBook: book.title, searchString: text, viewContext: viewContext)
             print(bookQuotes.count)
-//            DispatchQueue.main.async {
-//                if text != lastSearch {
-//                    lastSearch = text
-//                    searchQuotes(text: text)
-//                } else {
-//                    self.isSearching = false
-//                }
-//            }
         }
         print(Date().timeIntervalSince1970 - start)
         
@@ -230,9 +185,6 @@ struct BookQuotesView: View {
 }
 
 private extension BookQuotesView {
-//    func search(searchConfig: SearchConfig, sortOrder: SortOrder, type: QuoteSortType) {
-//        bookQuotes = book.filterQuotes(with: searchConfig, order: sortOrder, type: type)
-//    }
     func updateQuotes(_ quotes: FetchedResults<Quote>, _ book: Book) {
         for quote in quotes.filter({$0.book == nil}) {
             if quote.book != book && quote.title == book.title  {

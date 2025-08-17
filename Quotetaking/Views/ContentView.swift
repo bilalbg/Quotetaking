@@ -22,11 +22,9 @@ struct ContentView: View {
     @State private var showFilePicker = false
     @State private var sortType: BookSortType = .title
     @State private var isActive = false
-    @State private var doc: Document?
-//    @State private var docPicker = DocumentPickerViewController()
+    @State private var doc: Data?
     
     var provider = BooksProvider.shared
-//    private var sqliteFTSServices = SQLiteFTSServices(sqliteManager: sqliteManager)
     
     var body: some View {
         NavigationView {
@@ -34,7 +32,7 @@ struct ContentView: View {
                 if !books.isEmpty {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum:100))], spacing: 5) {
                         ForEach(books) { book in
-                            NavigationLink(destination: BookQuotesView(book: book/*, quotesVM: QuoteViewModel(quotes: book.getQuotesAsArray)*/)) {
+                            NavigationLink(destination: BookQuotesView(book: book)) {
                                 BookView(book: book)
                             }
                             .buttonStyle(PlainButtonStyle())
@@ -107,7 +105,6 @@ struct ContentView: View {
             })
             .navigationTitle("Your books")
             .onChange(of: searchConfig) {
-//                books.nsPredicate = NSPredicate(format: <#T##String#>)
                 books.nsPredicate = Book.filter(with: searchConfig)
             }
             .onChange(of: sortOrder) {
@@ -121,44 +118,59 @@ struct ContentView: View {
         .onAppear {
             books.nsSortDescriptors = Book.sortType(type: sortType, order: sortOrder)
         }
-        .sheet(isPresented: $showFilePicker) {
-//            Text("")
-            
-            docPicker(doc: $doc)
-        }
         
-        
-            Button {
-                dropTables()
-                
-            } label: {
-                Label("Drop sqlite tables", systemImage: "plus")
-            }
-            Button {
-                insertToSqlite()
-                
-            } label: {
-                Label("Insert into sqlite", systemImage: "plus")
-            }
-            Button {
-                provider.exportData()
-                
-            } label: {
-                Label("Export", systemImage: "plus")
-            }
-            Button {
-                
-                showFilePicker.toggle()
-                
-            } label: {
-                Label("Import", systemImage: "plus")
-            }
-//                            Label("Export")
+//            Button {
+//                dropTables()
+//                
+//            } label: {
+//                Label("Drop sqlite tables", systemImage: "plus")
+//            }
+//            Button {
+//                insertToSqlite()
+//                
+//            } label: {
+//                Label("Insert into sqlite", systemImage: "plus")
+//            }
+//            Button {
+//                provider.exportData()
+//                
+//            } label: {
+//                Label("Export", systemImage: "plus")
+//            }
+//            Button {
+//                
+//                showFilePicker.toggle()
+//                
+//            } label: {
+//                Label("Import", systemImage: "plus")
+//            }
+//            .fileImporter(isPresented: $showFilePicker, allowedContentTypes: [.item], onCompletion: { result in
+//                
+//                switch result{
+//                case .success(let fileurl):
+//                    processFilePicker(url: fileurl)
+//                    print(fileurl)
+//                case .failure(let error):
+//                    print(error)
+//                }
+//                
+//            })
+////                            Label("Export")
 //                                .onTapGesture {
 //                                    provider.exportData()
 //                                }
 //                            Label("Import")
     }
+    
+    func processFilePicker(url: URL) {
+        do {
+            try provider.importData(fileURL: url)
+
+        } catch {
+            print(error)
+        }
+    }
+    
     func dropTables() {
         DispatchQueue.global().async {
             self.sqliteFTSServices.dropTables()
@@ -166,17 +178,12 @@ struct ContentView: View {
     }
     
     func insertToSqlite() {
-//        var res: Bool = false
         
         DispatchQueue.global(qos: .userInitiated).async {
             let bookList = books
-//            res = true
             for book in bookList {
                 if let quotes = book.quotes {
                     let quoteList = quotes.allObjects as! [Quote]
-//                    print(book.title)
-//                    DispatchQueue.main.async {
-//                        sqliteFTSServices.bulkInsertFTSTable(quotes: quoteList)
 //                    }
                     DispatchQueue.main.async {
                         sqliteFTSServices.bulkInsertQuoteTable(quotes: quoteList)
@@ -195,7 +202,6 @@ struct ContentView: View {
     let preview = BooksProvider.shared
     ContentView()
         .environment(\.managedObjectContext, preview.viewContext)
-//        .previewDisplayName("Books with Data")
         .onAppear {
             Book.makePreview(count: 10, in: preview.viewContext)
         }

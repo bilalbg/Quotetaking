@@ -103,17 +103,6 @@ extension Book {
     }
 }
 
-//extension Book {
-//    public func addToQuotes(_ quote: Quote) {
-//        self.quotes.insert(quote)
-//    }
-//    
-//    public func removefromQuotes(_ quote: Quote){
-//        self.quotes.remove(quote)
-//    }
-//    
-//    
-//}
 
 extension Book {
     

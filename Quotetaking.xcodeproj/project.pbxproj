@@ -22,8 +22,6 @@
 		9E861A6B2CBB469800D39642 /* CoreData+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E861A6A2CBB469800D39642 /* CoreData+Convenience.swift */; };
 		9E861A6D2CBB4B9D00D39642 /* NSPersistentStoreCoordinator+backupPersistentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E861A6C2CBB4B9D00D39642 /* NSPersistentStoreCoordinator+backupPersistentStore.swift */; };
 		9E861A6F2CBB4BDA00D39642 /* TemporaryFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E861A6E2CBB4BDA00D39642 /* TemporaryFile.swift */; };
-		9E861A732CBB76CE00D39642 /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E861A722CBB76CE00D39642 /* DocumentPicker.swift */; };
-		9E861A752CBB773300D39642 /* DocumentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E861A742CBB773300D39642 /* DocumentPickerView.swift */; };
 		9EB4E8B12E4D8EE800D59C9B /* FMDB in Frameworks */ = {isa = PBXBuildFile; productRef = 9EB4E8B02E4D8EE800D59C9B /* FMDB */; };
 		9EB4E8B32E4D948C00D59C9B /* SQLiteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB4E8B22E4D948700D59C9B /* SQLiteManager.swift */; };
 		9EB4E8B52E4D95AC00D59C9B /* SQLiteFTSServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB4E8B42E4D95AB00D59C9B /* SQLiteFTSServices.swift */; };
@@ -82,8 +80,6 @@
 		9E861A6A2CBB469800D39642 /* CoreData+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreData+Convenience.swift"; sourceTree = "<group>"; };
 		9E861A6C2CBB4B9D00D39642 /* NSPersistentStoreCoordinator+backupPersistentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPersistentStoreCoordinator+backupPersistentStore.swift"; sourceTree = "<group>"; };
 		9E861A6E2CBB4BDA00D39642 /* TemporaryFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryFile.swift; sourceTree = "<group>"; };
-		9E861A722CBB76CE00D39642 /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
-		9E861A742CBB773300D39642 /* DocumentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerView.swift; sourceTree = "<group>"; };
 		9EB4E8B22E4D948700D59C9B /* SQLiteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteManager.swift; sourceTree = "<group>"; };
 		9EB4E8B42E4D95AB00D59C9B /* SQLiteFTSServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteFTSServices.swift; sourceTree = "<group>"; };
 		9EB4E8B72E4D963200D59C9B /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -254,7 +250,6 @@
 				9E5A11442B368798000BB50B /* LiveTextView.swift */,
 				9EF563FE2C2511280081AEB8 /* ListPagination.swift */,
 				9EF564002C2512CF0081AEB8 /* SpinnerView.swift */,
-				9E861A742CBB773300D39642 /* DocumentPickerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -280,7 +275,6 @@
 			children = (
 				9EF563C22C0CEFF50081AEB8 /* OperatorOverload.swift */,
 				9E861A6E2CBB4BDA00D39642 /* TemporaryFile.swift */,
-				9E861A722CBB76CE00D39642 /* DocumentPicker.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -442,10 +436,8 @@
 				9E861A6D2CBB4B9D00D39642 /* NSPersistentStoreCoordinator+backupPersistentStore.swift in Sources */,
 				9E861A6B2CBB469800D39642 /* CoreData+Convenience.swift in Sources */,
 				9EF563FD2C250A100081AEB8 /* QuoteViewModel.swift in Sources */,
-				9E861A752CBB773300D39642 /* DocumentPickerView.swift in Sources */,
 				9ECE4C992B2E473F0048B4EE /* ContentView.swift in Sources */,
 				9ECE4C972B2E473F0048B4EE /* QuotetakingApp.swift in Sources */,
-				9E861A732CBB76CE00D39642 /* DocumentPicker.swift in Sources */,
 				9EB4E8B32E4D948C00D59C9B /* SQLiteManager.swift in Sources */,
 				9E861A6F2CBB4BDA00D39642 /* TemporaryFile.swift in Sources */,
 				9E5A11432B360EFD000BB50B /* QuoteView.swift in Sources */,
@@ -637,6 +629,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Quotetaking/Info.plist;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Quotetaking needs access to your camera to take photos";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Created by Bilal Baig";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Quotetaking needs access to your photo library to select images";
@@ -680,6 +673,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Quotetaking/Info.plist;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Quotetaking needs access to your camera to take photos";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Created by Bilal Baig";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Quotetaking needs access to your photo library to select images";

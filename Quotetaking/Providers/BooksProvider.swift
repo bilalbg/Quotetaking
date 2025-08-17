@@ -15,13 +15,6 @@ struct BooksProvider {
     static let shared = BooksProvider()
     
     private let persistentContainer: NSPersistentContainer
-//    private var subscriptions: Set<AnyCancellable> = []
-    
-//    let storeCoordinator: NSPersistentStoreCoordinator  {
-//        do {
-//
-//        }
-//    }
     
     var viewContext: NSManagedObjectContext {
         persistentContainer.viewContext
@@ -97,6 +90,7 @@ struct BooksProvider {
 }
 
 extension BooksProvider {
+    
     func exportData() {
         let storeCoordinator: NSPersistentStoreCoordinator = persistentContainer.persistentStoreCoordinator
 //        persistentContainer.persistentStoreCoordinator.backupFile
@@ -108,19 +102,41 @@ extension BooksProvider {
                     try! backupFile.deleteDirectory()
                 }
                 print("The backup is at \"\(backupFile.fileURL.path)\"")
-                // Do something with backupFile.fileURL
-                // Move it to a permanent location, send it to the cloud, etc.
-                // ...
             } catch {
                 print("Error backing up Core Data store: \(error)")
             }
     }
     
-    func importData() throws {
-//        guard let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
-//            throw fatalError("i.e")
-//        }
-//        let documentPicker = DocumentPicker(presentationController: self, delegate: self)
+    func importData(fileURL: URL) throws {
+        fileURL.startAccessingSecurityScopedResource()
+        let storeCoordinator: NSPersistentStoreCoordinator = persistentContainer.persistentStoreCoordinator
+        for persistentStore in storeCoordinator.persistentStores {
+            guard let storeUrl = persistentStore.url else {
+                continue
+            }
+            storeUrl.startAccessingSecurityScopedResource()
+            do {
+                try storeCoordinator.remove(persistentStore)
+            } catch {
+                print("er 1")
+            }
+            
+            do {
+                let storeOptions = persistentStore.options ?? [:]
+                let storeType = persistentStore.type
+                let configurationName = persistentStore.configurationName ?? ""
+                
+                try storeCoordinator.replacePersistentStore(at: storeUrl, destinationOptions: storeOptions, withPersistentStoreFrom: fileURL, sourceOptions: storeOptions, type: NSPersistentStore.StoreType(rawValue: storeType))
+                try storeCoordinator.addPersistentStore(ofType: storeType, configurationName: configurationName, at: storeUrl, options: storeOptions)
+                print("success")
+            } catch {
+                print("err 2 \(error.localizedDescription)")
+            }
+            storeUrl.stopAccessingSecurityScopedResource()
+            
+        }
+        fileURL.stopAccessingSecurityScopedResource()
+        
         
     }
 }

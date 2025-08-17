@@ -23,8 +23,6 @@ class QuoteViewModel: ObservableObject {
     }
     
     private func retrieveDataFromAPI(completion: (() -> Void)? = nil) {
-//      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-//        guard let self = self else { return }
         
         let newData =  quotes[self.start...self.stop]
         self.items.append(contentsOf: newData)

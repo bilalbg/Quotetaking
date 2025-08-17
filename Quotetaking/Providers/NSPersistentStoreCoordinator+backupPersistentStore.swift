@@ -64,13 +64,10 @@ extension NSPersistentStoreCoordinator {
 
         let backupFilename = makeFilename()
         var backupFile = try TemporaryFile(creatingTempDirectoryForFilename: backupFilename)
-//        let directory = FileManager.default.urls(for: .downloadsDirectory, in: .localDomainMask)
         guard let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             throw fatalError("i.e")
         }
-//        let fileUrl = /*directory*/.first.appendingPathComponent(backupFilename)
         backupFile.fileURL = directory.appendingPathComponent(backupFilename)
-//        backupCoordinator.migratePersistentStore(<#T##store: NSPersistentStore##NSPersistentStore#>, to: <#T##URL#>, type: <#T##NSPersistentStore.StoreType#>)
         try backupCoordinator.migratePersistentStore(intermediateStore, to: backupFile.fileURL, options: backupStoreOptions, withType: NSSQLiteStoreType)
         return backupFile
     }
