@@ -386,11 +386,11 @@ class SQLiteFTSServices: ObservableObject {
         var quotes = [Quote]()
         var selectStatement: OpaquePointer? = nil
         var selectSql: String = ""
-        if searchBook != "" {
-            selectSql = "SELECT quotesFTS.title, quotesFTS.quote, quotesFTS.author , quotesFTS.page, quotesFTS.notes FROM quotesFTS RIGHT JOIN quotesFTS ON quotesFTS.quote = quotesFTS.quote WHERE quotesFTS.title = '\(searchBook)' AND  quotesFTS.quote LIKE '\(searchString)*' ORDER BY quotesFTS.page ASC"
-        } else {
-            selectSql = "SELECT quotesFTS.title, quotesFTS.quote, quotesFTS.author, quotesFTS.page, quotesFTS.notes FROM quotesFTS RIGHT JOIN quotesFTS ON quotesFTS.title = quotesFTS.title WHERE quotesFTS.quote MATCH '\(searchString)*' ORDER BY quotesFTS.page ASC"
-        }
+//        if searchBook != "" {
+//            selectSql = "SELECT quotesFTS.title, quotesFTS.quote, quotesFTS.author , quotesFTS.page, quotesFTS.notes FROM quotesFTS RIGHT JOIN quotesFTS ON quotesFTS.quote = quotesFTS.quote WHERE quotesFTS.title = '\(searchBook)' AND  quotesFTS.quote LIKE '\(searchString)*' ORDER BY quotesFTS.page ASC"
+//        } else {
+//            selectSql = "SELECT quotesFTS.title, quotesFTS.quote, quotesFTS.author, quotesFTS.page, quotesFTS.notes FROM quotesFTS RIGHT JOIN quotesFTS ON quotesFTS.title = quotesFTS.title WHERE quotesFTS.quote MATCH '\(searchString)*' ORDER BY quotesFTS.page ASC"
+//        }
         selectSql = "SELECT * FROM quotes WHERE _id IN (SELECT docid FROM quotesFTS where quotesFTS MATCH '\(searchString)*') and title = '\(searchBook)' ORDER BY page ASC"
         if sqlite3_prepare_v2(self.sqliteManager.sqliteDB, selectSql, -1, &selectStatement, nil) == SQLITE_OK {
             while sqlite3_step(selectStatement) == SQLITE_ROW {

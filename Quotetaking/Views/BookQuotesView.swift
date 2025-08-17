@@ -167,8 +167,11 @@ struct BookQuotesView: View {
         .onChange(of: searchConfig) {
             searchQuotes(text: searchConfig.query)
         }
-        .onAppear() {
-            bookQuotes = book.filterQuotes(with: searchConfig, order: sortOrder, type: sortType)
+//        .onAppear() {
+//            bookQuotes = book.filterQuotes(with: searchConfig, order: sortOrder, type: sortType)
+//        }
+        .onAppear {
+            searchQuotes(text: "")
         }
     }
     
@@ -189,10 +192,10 @@ private extension BookQuotesView {
         for quote in quotes.filter({$0.book == nil}) {
             if quote.book != book && quote.title == book.title  {
                 if quote.title == book.title {
-                        print("pass")
+//                        print("pass")
                         quote.book = book
                         viewContext.insert(quote)
-                        print(quote)
+//                        print(quote)
                         do {
                             try viewContext.save()
                         } catch {
